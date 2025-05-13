@@ -10,8 +10,8 @@ format:
     
 ---
 
-<div style="font-size: 150%; margin-top: 1.5em; text-align: center; font-weight: bold;">
-Plaque Begets Plaque, ApoB Does Not
+<div style="font-size: 200%; margin-top: 1.5em; text-align: center; font-weight: bold;">
+[Plaque Begets Plaque, ApoB Does Not](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686)
 </div>
 
 <div style="margin-top: 1.2em; margin-bottom: 1.5em; text-align: center; font-weight: bold; font-size: 120%;">
@@ -23,6 +23,27 @@ The Statistics Cause Doubt
 <div style="text-align: center; font-size: 90%;">
 John Slough
 </div>
+
+
+---
+
+## Study Summary {.smaller}
+[Plaque Begets Plaque, ApoB Does Not — Soto-Mota et al., 2025](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686)
+
+- **Trial ID**: [NCT05733325](https://clinicaltrials.gov/study/NCT05733325)
+<br>
+
+- **Design**: 1-year prospective cohort using coronary CT angiography (CCTA)  
+- **Participants**: 100 lean, metabolically healthy adults on keto ≥2 yrs  
+  - LDL-C ≥190 mg/dL, HDL-C ≥60 mg/dL, TG ≤80 mg/dL, ApoB 185 ± 51 mg/dL  
+  <br>
+  
+- **Findings**: No link between ApoB/LDL-C (baseline/change) and plaque progression  
+- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression  
+- **Stats**: Bayesian analysis favored no ApoB–plaque link (6–10× vs alt)  
+<br>
+- **Conclusion**: *Plaque begets plaque; ApoB does not*  
+
 
 
 ---
