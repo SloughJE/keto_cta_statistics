@@ -39,7 +39,7 @@ John Slough
   <br>
   
 - **Findings**: No link between ApoB/LDL-C (baseline/change) and plaque progression  
-- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression  
+- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression (ΔNCPV) 
 - **Stats**: Bayesian analysis favored no ApoB–plaque link (6–10× vs alt)  
 <br>
 - **Conclusion**: *Plaque begets plaque; ApoB does not*  
@@ -431,7 +431,7 @@ To claim that the null is 6–10× more likely to be *true*, they would have to 
 
 ## 5 Bayes Factor Interpretation {.smaller}
 
-Even without other issues (e.g. confounding / non-adjusted variables, short follow-up, etc.),
+Even without other issues (e.g. confounding / non-adjusted variables / short follow-up / non-RCT, etc.),
 the reported BF of **6.3 for ΔNCPV ~ ApoB** reflects only moderate evidence for no effect —
 not strong or decisive.
 
