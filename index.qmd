@@ -829,7 +829,7 @@ This matters because:
 
 From the response:
 
->"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be subjective"
+>"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be **subjective**"
 
 Objective, quantitative statistical tests also exist for assessing model assumptions:
 
@@ -839,7 +839,7 @@ Objective, quantitative statistical tests also exist for assessing model assumpt
   <li>Influence / leverage: Cook’s distance, leverage plots (visual based on quantitative values)</li>
 </ul>
 
-The `performance::check_model()` function they cite automatically generates these checks.
+The `performance::check_model()` function they cite automatically generates most of these checks.
 
 It’s unclear why they wouldn't include or reference the output.
 
