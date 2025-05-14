@@ -831,8 +831,6 @@ From the response:
 
 >"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be subjective"
 
-Residual plot evaluation is not the only diagnostic.
-
 Objective, quantitative statistical tests also exist for assessing model assumptions:
 
 <ul style="margin-top: 0; margin-bottom: 0; font-size: 85%; line-height: 1; padding-left: 1.5em;">
