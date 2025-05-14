@@ -11,7 +11,7 @@ format:
 ---
 
 <div style="font-size: 200%; margin-top: 1.5em; text-align: center; font-weight: bold;">
-[Plaque Begets Plaque, ApoB Does Not](https://www.jacc.org/doi/10.1016/j.jacadv.2025.101686)
+Plaque Begets Plaque, ApoB Does Not
 </div>
 
 <div style="margin-top: 1.2em; margin-bottom: 1.5em; text-align: center; font-weight: bold; font-size: 120%;">
@@ -146,9 +146,9 @@ These conditions tend to bias the slope upward; whether the resulting positive a
 
 ```r
 n <- 100 # Set the number of values to generate
-ncpv_0 <- rnorm(n, mean = 100, sd = 10) # Create 100 random numbers centered around 100
-ncpv_1 <- rnorm(n, mean = 110, sd = 10) # Create another 100 random numbers, centered around 110  
-delta_ncpv <- ncpv_1 - ncpv_0 # Subtract the first set from the second to get the difference
+baseline <- rnorm(n, mean = 100, sd = 10) # Create 100 random numbers centered around 100
+follow_up <- rnorm(n, mean = 120, sd = 10) # Create another 100 random numbers, centered around 110  
+delta <- follow_up - baseline # Subtract the first set from the second to get the difference
 
 ```
 <br>
@@ -165,32 +165,32 @@ library(plotly)
 set.seed(42)
 
 n <- 100
-ncpv_0 <- rnorm(n, mean = 100, sd = 10)
-ncpv_1 <- rnorm(n, mean = 120, sd = 10)
-delta_ncpv <- ncpv_1 - ncpv_0
+baseline <- rnorm(n, mean = 100, sd = 10)
+follow_up <- rnorm(n, mean = 120, sd = 10)
+delta <- follow_up - baseline
 
 df <- data.frame(
-  NCPV_0 = ncpv_0,
-  NCPV_1 = ncpv_1,
-  Delta_NCPV = delta_ncpv
+  baseline = baseline,
+  follow_up = follow_up,
+  delta = delta
 )
 
-model_raw <- lm(NCPV_1 ~ NCPV_0, data = df)
+model_raw <- lm(follow_up ~ baseline, data = df)
 slope_raw <- coef(model_raw)[2]
 pval_raw <- summary(model_raw)$coefficients[2, 4]
 pval_raw_text <- format.pval(pval_raw, eps = 0.001)
 label_raw <- sprintf("β = %.2f, p %s", slope_raw, pval_raw_text)
 
-p_raw = ggplot(df, aes(x = NCPV_0, y = NCPV_1)) +
+p_raw = ggplot(df, aes(x = baseline, y = follow_up)) +
   geom_point(alpha = 0.7, size = 2.5) +
   geom_smooth(method = "lm", se = FALSE, color = "steelblue") +
-  annotate("text", x = min(df$NCPV_0) + 30, y = max(df$NCPV_1),
+  annotate("text", x = min(df$baseline) + 30, y = max(df$follow_up),
            label = label_raw, color = "darkred", hjust = 0, size = 4) +
   labs(
     title = "Basline vs Follow-up",
     subtitle = "Two independent variables — no true effect",
-    x = "Baseline NCPV",
-    y = "Follow up NCPV"
+    x = "Baseline",
+    y = "Follow up"
   ) +
   theme_minimal()
 
@@ -205,23 +205,23 @@ ggplotly(p_raw, height = 350, width = 500) %>%
 ```{r echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Association due to mathematical coupling"}
 
 
-model_change <- lm(Delta_NCPV ~ NCPV_0, data = df)
+model_change <- lm(delta ~ baseline, data = df)
 slope_change <- coef(model_change)[2]
 pval_change <- summary(model_change)$coefficients[2, 4]
 pval_change_text <- format.pval(pval_change, eps = 0.001)
 label_change <- sprintf("β = %.2f, p %s", slope_change, pval_change_text)
 
 
-p = ggplot(df, aes(x = NCPV_0, y = Delta_NCPV)) +
+p = ggplot(df, aes(x = baseline, y = delta)) +
   geom_point(alpha = 0.7, size = 2.5) +
   geom_smooth(method = "lm", se = FALSE, color = "steelblue") +
-  annotate("text", x = min(df$NCPV_0) + 30, y = max(df$Delta_NCPV),
+  annotate("text", x = min(df$baseline) + 30, y = max(df$delta),
            label = label_change, color = "darkred", hjust = 0, size = 4) +
   labs(
-    title = "Basline vs Change in NCPV",
+    title = "Basline vs Change (Follow up - Baseline)",
     subtitle = "Mathematical Coupling Creates a Spurious Slope",
-    x = "Baseline NCPV",
-    y = "Change in NCPV (ΔNCPV)"
+    x = "Baseline",
+    y = "Follow up - Baseline (Δ)"
   ) +
   theme_minimal()
 
@@ -371,42 +371,215 @@ Unusual. Fragile. Overstated.
 
 ## 3 Bayesian Inference {.smaller}
 
-> "Bayesian inference adds credence to finding that there is no association between NCPV vs LDL-C or ApoB..."
+<div style="font-size: 75%;">
+**Frequentist:**
 
-The authors used Bayesian inference to support their finding that **ApoB has no association with plaque progression**.
+Assuming there is no true association between ApoB and ΔNCPV, how likely is it that we'd observe a slope as large (or larger) than the one we found, just by chance?
 
+If p-value (p > 0.05) a frequentist analysis can say:
+
+*"We did not find sufficient evidence to reject the hypothesis that ApoB has no association with ΔNCPV"*
+
+It **cannot** say the null is likely true, or produce the probability that there is no association, just that the data were inconclusive.
+
+<br>
+**Bayesian:**
+
+How well do the data fit under two competing models, one with no association (null), and one with a range of plausible effect sizes for ApoB (alternative)?
+
+A **Bayes factor (e.g., BF₁₀ = 6)** allows a stronger statement:
+
+*"The observed data are 6 times more likely (moderate evidence) under the 'no association' model than under the alternative model that assumes some effect from ApoB (as defined by the prior)."*
+
+- Frequentist: *"No evidence of effect"*  
+- Bayesian: *"Evidence for no effect"*
+
+</div>
+
+---
+
+## 3 Bayesian Inference {.smaller}
+
+<div style="font-size: 80%;">
+
+> "Since lack of statistical signifcance (ie, P > 0.05) should not be interpreted as evidence in favor of the null but simply a failure to reject the null, the addition of Bayesian inference adds credence to finding that there is no association between NCPV vs LDL-C or ApoB..."
+
+</div>
+
+So, they turn to Bayesian inference to "support" their finding that **ApoB has no association with plaque progression**.
+
+<br>
 This is *unusual* in a non-randomized, uncontrolled, 1-year observational study on a highly restricted sample:
 
-<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9;">
-  <li>No causal inference can be made from this study design</li>
-  <li>It's done on univariable, unadjusted models</li>
-  <li>They use Bayes factors to imply (strongly) the [absence of effect, not just lack of evidence](https://orca.cardiff.ac.uk/id/eprint/163206/4/tendeiro-et-al-2024-diagnosing-the-misuse-of-the-bayes-factor-in-applied-research.pdf#page=6&search=Presence%20versus%20absence)</li>
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
+  <li>Study design not suited for strong inferences about presence or absence of associations</li>
+  <li>Univariable, unadjusted models: reduce credibility of any statistical conclusion</li>
+  <li>Bayesian inference used to imply [absence of effect, not just lack of evidence](https://orca.cardiff.ac.uk/id/eprint/163206/4/tendeiro-et-al-2024-diagnosing-the-misuse-of-the-bayes-factor-in-applied-research.pdf#page=6&search=Presence%20versus%20absence)</li>
 </ul>
 
-This is a misuse of Bayesian inference; to "add credence" to a claim of no effect, based on an uncontrolled study design and simplistic modeling.
+<br>
+Despite the limited model and context, they present the result as confirmatory.
+
+---
+
+
+## 3 Bayesian Inference {.smaller}
+
+
+They are applying a stronger-sounding statistical framework onto a structurally weak analysis.
+
+This is a **misuse** of Bayesian inference. 
+
+<br>
+
+Not because Bayesian methods are invalid.
+
+<br>
+Because they're being used to amplify certainty in a weak design, without transparency about the assumptions that drive the result.
+
 
 ---
 
 ## 4 Bayesian Prior Choice {.smaller}
 
 
-> “Bayes factors were calculated … using an ~ **rscale = 0.8** value of 0.8 to contrast a moderately informative prior with a conservative distribution width (to allow for potential large effect sizes”
+<div style="font-size: 73%;">
 
-Bayes factors compare how well the data are predicted under H₀ vs. H₁ — but H₁ isn’t just any nonzero effect; it's a distribution of plausible effect sizes defined by the prior.
+> "Bayes factors were calculated using BayesFactor::regressionBF... and an ~ rscale value of 0.8 to *contrast a moderately informative prior with a conservative distribution width* (to allow for potential large effect sizes) due to the well-documented association between ApoB changes and coronary plaque changes"
 
-The authors used a wide, Cauchy-like prior (r = 0.8), "due to the well-documented association between ApoB changes and coronary plaque changes."
+</div>
 
-- The model expected large effects from ApoB, so small effects could be seen as evidence for no effect.
+<div style="font-size: 90%;">
 
-This choice of prior isn't wrong, it is fragile, subjective, and drives the result.
+**Bayesian Prior**: represents your belief about likely effect sizes before seeing the data.
 
-<div style="font-size: 60%;">
+From the [BayesFactor documentation](https://cran.r-project.org/web/packages/BayesFactor/BayesFactor.pdf) for the parameter `rscaleCont`:
+
+"Several named values are recognized: [‘medium’, ‘wide’, and ‘ultrawide’](https://richarddmorey.github.io/BayesFactor/#proptest), which correspond to rscales of √2/4, 1/2, and √2/2, respectively.”
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
+  <li>**"medium"** → rscale = √2 / 4 ≈ **0.354**</li>
+  <li>**"wide"** → rscale = **0.5**</li>
+  <li>**"ultrawide"** → rscale = √2 / 2 ≈ **0.707**</li>
+</ul>
+
+<br>
+`rscale` of **0.8** is **wider than "ultrawide"**. It is not a "moderately informative" prior. It's actually a weakly informative or vague prior, placing most of its weight on large effects.
+
+A moderately informative prior would typically correspond to "medium" (≈ 0.354) or "wide" (0.5), which place more mass on smaller effects.
+
+</div>
+
+---
+
+## 4 Bayesian Prior Choice {.smaller}
+
+The authors' prior choice isn't wrong, but their description of it is misleading.
+
+Labeling an **r = 0.8** prior as “moderately informative” or “conservative” downplays the fact that it assumes **large effects**, making small observed effects look unlikely under H₁ and inflating support for H₀.
+
+<br>
+
+Their choice of prior is subjective, influential, and not tested for robustness.
+
+- The model was set up to expect large ApoB effects, so small observed effects are treated as evidence for no effect. 
+
+- **Best practice** is to run a **sensitivity analysis**, to see whether conclusions change with different priors.
+
+<div style="font-size: 80%;">
+
+["it is always important to conduct a prior **sensitivity analysis** to fully understand the influence that the prior settings have on posterior estimates"](https://www.nature.com/articles/s43586-020-00001-2)
 
 ["a researcher can have a very strong opinion about the model parameter values, and this opinion (via the prior) can drive the final model estimates."](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.608045/full)
 
-["it is always important to conduct a prior **sensitivity analysis** to fully understand the influence that the prior settings have on posterior estimates"](https://www.nature.com/articles/s43586-020-00001-2)
 </div>
 
+---
+
+## 4 Bayesian Prior Choice {.smaller}
+
+#### Prior Scale Sensitivity Analysis
+
+<br>
+
+::: columns
+
+::: {.column width="40%"}
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+library(BayesFactor)
+library(kableExtra)
+
+# Simulated data
+set.seed(123)
+n <- 100  # Match study sample size
+
+# ApoB in mg/dL, realistic scale from study
+apoB <- rnorm(n, mean = 185, sd = 50.8)
+
+# Simulate ΔNCPV with very weak ApoB effect (like β = 0.1), and large residual SD
+delta_NCPV <- pmax(0, 0.1 * apoB + rnorm(n, mean = 40, sd = 70))
+
+# Combine into dataframe
+df <- data.frame(delta_NCPV, apoB)
+
+# View correlation and regression summary
+# summary(lm(delta_NCPV ~ apoB, data = df))
+
+# rscale values to test
+rscales <- c(0.1, 0.25, 0.35, 0.5, 0.707, 0.8, 1.0)
+results <- sapply(rscales, function(r) {
+  bf <- regressionBF(delta_NCPV ~ apoB, data = df, rscaleCont = r)
+  extractBF(bf, onlybf = TRUE)
+})
+
+sensitivity_df <- data.frame(
+  rscale = rscales,
+  BF10 = as.numeric(results),
+  BF01 = 1 / results
+)
+
+kable(sensitivity_df, digits = 3,
+      col.names = c("rscale", "BF₁₀", "BF₀₁"),
+      caption = "Bayes factor sensitivity analysis") %>%
+  kable_styling(full_width = FALSE, font_size = 24)
+
+```
+
+:::
+
+::: {.column width="60%"}
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+# Plot BF01 vs. rscale
+prior_sensitivity = ggplot(sensitivity_df, aes(x = rscale, y = BF01)) +
+  geom_line(linewidth = 1.2, color = "steelblue") +
+  geom_point(size = 3, color = "steelblue") +
+  geom_hline(yintercept = 3, linetype = "dashed", color = "gray40") +
+  geom_hline(yintercept = 10, linetype = "dotted", color = "gray40") +
+  annotate("text", x = 0.4, y = 3.3, label = "Moderate evidence", hjust = 0, size = 3.5) +
+  annotate("text", x = 0.4, y = 10.3, label = "Strong evidence", hjust = 0, size = 3.5) +
+  labs(
+    title = "Bayes Factor Sensitivity to Prior Width (rscale)",
+    x = "Prior rscale",
+    y = "Bayes Factor (BF₀₁)",
+  ) +
+  theme_minimal(base_size = 13)
+
+ggplotly(prior_sensitivity , height = 400, width = 600) %>%
+  config(displayModeBar = FALSE) 
+
+```
+
+:::
+
+:::
+
+<div style="font-size: 75%;">
+This kind of [rscale sensitivity analysis](https://link.springer.com/article/10.3758/PBR.16.2.225) is standard for default Bayes factors, but it's a limited diagnostic — it tests only prior width, not prior plausibility or model fit.
+</div>
 ---
 
 ## 5 Bayes Factor Interpretation {.smaller}
@@ -532,3 +705,76 @@ These issues are **clear in TPS**, and may affect NCPV, but diagnostics are not 
 They could have considered methods to address this such as: **Tobit regression**, **log-transform**, or **robust SEs**
 
 </div>
+
+
+## Possibly Underpowered Study {.smaller}
+
+<div style="font-size: 75%; margin-bottom: 1em">
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 1;">
+  <li>Study Registered Primary endpoint: **%Δ NCPV over 12 mo**, not specifically sized for ApoB detection.</li>
+  <li>With *n = 100*, 80 % power is reached for large and medium effects for 1 predictor linear regression.</li>
+  <li>A null result after one year may be due to low power, not proof of no ApoB effect.</li>    
+  <li>Note: even if it is adequately powered, it doesn't negate all the other issues like mathematical coupling, confounding, non-adjustment, short follow-up etc.</li>
+</ul>
+</div>
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+library(ggplot2)
+library(pwr)
+library(plotly)
+
+# Define effect sizes and parameters
+effect_sizes <- c(small = 0.02, medium = 0.15, large = 0.35)
+u <- 1
+alpha <- 0.05
+n_vals <- seq(10, 600, by = 1)
+
+# Calculate power for each effect size
+power_df <- data.frame(
+  SampleSize = rep(n_vals, times = length(effect_sizes)),
+  EffectSize = rep(names(effect_sizes), each = length(n_vals)),
+  Power = NA_real_
+)
+
+for (i in seq_len(nrow(power_df))) {
+  f2 <- effect_sizes[power_df$EffectSize[i]]
+  n <- power_df$SampleSize[i]
+  v <- n - u - 1
+  power_df$Power[i] <- pwr.f2.test(u = u, f2 = f2, sig.level = alpha, v = v)$power
+}
+
+# Base plot
+power_curves <- ggplot(power_df, aes(x = SampleSize, y = Power, color = EffectSize)) +
+  geom_line(size = 1.2) +
+  geom_hline(yintercept = 0.8, linetype = "dashed", color = "black") +
+  geom_vline(xintercept = 100, linetype = "dashed", color = "gray30") +
+  labs(
+    title = "Power Curve for Linear Regression (1 Predictor)",
+    subtitle = "Effect Sizes: Small (f² = 0.02), Medium (f² = 0.15), Large (f² = 0.35)",
+    x = "Sample Size", y = "Power", color = "Effect Size"
+  ) +
+  theme_minimal(base_size = 14) + 
+  theme(legend.position = "bottom")
+
+# Convert to interactive plot
+power_plotly <- ggplotly(power_curves, height = 450, width = 800) %>%
+  layout(
+    annotations = list(
+      list(
+        x = 550, y = 0.82, text = "80% Power Threshold", 
+        showarrow = TRUE, arrowhead = 2, ax = -40, ay = -30
+      ),
+      list(
+        x = 100, y = 0.25, text = "Study Sample Size = 100", 
+        showarrow = TRUE, arrowhead = 2, ax = 40, ay = -40
+      )
+    )
+  )
+
+power_plotly 
+
+```
+
+## A Note on Letters to the Editor {.smaller}
+
