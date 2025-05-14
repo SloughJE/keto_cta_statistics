@@ -303,8 +303,7 @@ At worst: misleading.
 
 > "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
 
-Despite having multiple baseline predictors available  
-(age, sex, ApoB, Δ-ApoB, CAC, NCPV₀, LDL-C exposure),  
+Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
 each was tested separately in single-predictor regressions.
 
 This modeling choice introduces **omitted-variable bias**:  
@@ -323,7 +322,7 @@ When a predictor is correlated with both the outcome and another omitted variabl
 They modeled:
 
 $$
-\Delta \text{NCPV} = \alpha + \beta \cdot \text{ApoB} + \varepsilon
+\Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
 $$
 
 But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** — it partly reflects the effect of age.
@@ -332,7 +331,7 @@ But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **
 A more appropriate model would be:
 
 $$
-\Delta \text{NCPV} = \alpha + \beta_1 \cdot \text{ApoB} + \beta_2 \cdot \text{Age} + \varepsilon
+\Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
 $$
 
 This separates the contribution of ApoB from that of age.
@@ -425,7 +424,7 @@ Despite the limited model and context, they present the result as confirmatory.
 
 ## 3 Bayesian Inference {.smaller}
 
-
+<br>
 They are applying a stronger-sounding statistical framework onto a structurally weak analysis.
 
 This is a **misuse** of Bayesian inference. 
@@ -435,7 +434,7 @@ This is a **misuse** of Bayesian inference.
 Not because Bayesian methods are invalid.
 
 <br>
-Because they're being used to amplify certainty in a weak design, without transparency about the assumptions that drive the result.
+Because they're being used to amplify certainty in an analysis that lacks adjustment, control, or transparency about its assumptions.
 
 
 ---
@@ -451,6 +450,7 @@ Because they're being used to amplify certainty in a weak design, without transp
 
 <div style="font-size: 90%;">
 
+<br>
 **Bayesian Prior**: represents your belief about likely effect sizes before seeing the data.
 
 From the [BayesFactor documentation](https://cran.r-project.org/web/packages/BayesFactor/BayesFactor.pdf) for the parameter `rscaleCont`:
@@ -463,7 +463,6 @@ From the [BayesFactor documentation](https://cran.r-project.org/web/packages/Bay
   <li>**"ultrawide"** → rscale = √2 / 2 ≈ **0.707**</li>
 </ul>
 
-<br>
 `rscale` of **0.8** is **wider than "ultrawide"**. It is not a "moderately informative" prior. It's actually a weakly informative or vague prior, placing most of its weight on large effects.
 
 A moderately informative prior would typically correspond to "medium" (≈ 0.354) or "wide" (0.5), which place more mass on smaller effects.
@@ -498,7 +497,7 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 
 ## 4 Bayesian Prior Choice {.smaller}
 
-#### Prior Scale Sensitivity Analysis
+#### Prior Scale Sensitivity Analysis on ΔNPCV ~ ApoB Model
 
 <br>
 
@@ -543,7 +542,7 @@ sensitivity_df <- data.frame(
 kable(sensitivity_df, digits = 3,
       col.names = c("rscale", "BF₁₀", "BF₀₁"),
       caption = "Bayes factor sensitivity analysis") %>%
-  kable_styling(full_width = FALSE, font_size = 24)
+  kable_styling(full_width = FALSE, font_size = 22)
 
 ```
 
@@ -568,7 +567,7 @@ prior_sensitivity = ggplot(sensitivity_df, aes(x = rscale, y = BF01)) +
   ) +
   theme_minimal(base_size = 13)
 
-ggplotly(prior_sensitivity , height = 400, width = 600) %>%
+ggplotly(prior_sensitivity , height = 375, width = 550) %>%
   config(displayModeBar = FALSE) 
 
 ```
@@ -580,6 +579,7 @@ ggplotly(prior_sensitivity , height = 400, width = 600) %>%
 <div style="font-size: 75%;">
 This kind of [rscale sensitivity analysis](https://link.springer.com/article/10.3758/PBR.16.2.225) is standard for default Bayes factors, but it's a limited diagnostic — it tests only prior width, not prior plausibility or model fit.
 </div>
+
 ---
 
 ## 5 Bayes Factor Interpretation {.smaller}
@@ -655,11 +655,6 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 </div>
 
 ---
-
-"Plaque Begets Plaque, ApoB Does Not"
-
-<br>
-The study regressed mathematically coupled differences in plaque volume (ΔNCPV) on baseline variables using univariable models, then made the unusual choice to use Bayesian inference (also without accounting for confounding), applied a prior without reporting a sensitivity analysis (which the strength of the Bayes Factor likely hinges on), and interpreted the Bayes Factors as evidence for no ApoB effect, culminating in a headline that far exceeds what the statistical methods can credibly support.
 
 
 # Additional Concerns
@@ -776,5 +771,119 @@ power_plotly
 
 ```
 
+
+---
+
+## On the Heterogeneity of the LMHR Group {.smaller}
+
+<div style="font-size: 85%">
+
+"It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keta-CTA study
+
+["If, despite our results show that CVDrisk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
+
+<br>
+They say the group is heterogeneous (to downplay the pooled NCPV change), yet they ran univariable regressions and interpreted pooled Bayes factors as if the group were homogeneous.
+
+If a group is too heterogeneous to report pooled outcomes, it is also too heterogeneous to justify pooled inferences about predictors or mechanisms.
+
+If their CVD risk (e.g., plaque progression) is not coherent, then the category fails as a predictive or explanatory tool.
+
+</div>
+
+---
+
+## On the Heterogeneity of the LMHR Group {.smaller}
+
+<div style="font-size: 85%">
+
+
+"p50=18.8 mm3 IQR(37.3)."
+
+With a median of 18.8 mm³ and only 1–2 individuals showing regression, the IQR of 37.3 mm³ must be mostly skewed upward, not balanced.
+
+A wide IQR here reflects high inter-individual variability in outcomes among the LMHRs, variability in progression of NCPV, as all but a few individuals had more plaque at follow up.
+
+In other words: With nearly all LMHRs showing plaque progression, a wide IQR (37.3 mm³) doesn’t indicate balanced variability—it reflects differing degrees of worsening.
+
+
+This matters because:
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 1; padding-left: 1.5em;">
+  <li>The outcome (ΔNCPV) shows high variability across individuals in the LMHR group.</li>
+  <li>That inflates standard errors, weakens statistical power, and makes small observed effects more ambiguous.</li>
+  <li>It calls for adjusted modeling to reduce noise and account for confounding, not pooled univariable regressions and Bayes factors interpreted as strong evidence.</li>
+</ul>
+
+</div>
+
+---
+
 ## A Note on Letters to the Editor {.smaller}
 
+<div style="font-size: 75%">
+
+[Letter to the Editor](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101861)
+
+[Response to the Letter](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101862)
+
+From the response:
+
+>"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be subjective"
+
+Residual plot evaluation is not the only diagnostic.
+
+Objective, quantitative statistical tests also exist for assessing model assumptions:
+
+<ul style="margin-top: 0; margin-bottom: 0; font-size: 85%; line-height: 1; padding-left: 1.5em;">
+  <li>Normality: Shapiro-Wilk, Kolmogorov–Smirnov, Q-Q plots (visual / quantitative)</li>
+  <li>Homoscedasticity: Breusch–Pagan, White test</li>
+  <li>Influence / leverage: Cook’s distance, leverage plots (visual based on quantitative values)</li>
+</ul>
+
+The `performance::check_model()` function they cite automatically generates these checks.
+
+It’s unclear why they wouldn't include or reference the output.
+
+> "...we followed their suggestion and re-ran all models with robust linear regression...as expected, there were small differences with the published estimates, all models using robust regression were consistent with what was reported."
+
+No output, diagnostics, or model fit provided. We are asked to trust their assertion.
+
+</div>
+
+---
+
+## A Note on Letters to the Editor {.smaller}
+
+<div style="font-size: 75%">
+
+>"We agree that being able to identify patients with rapid plaque progression, and gaining better understanding of the mechanisms that mediate its pace (i.e. insulin resistance, inflammation, different dietary composition elements, etc.) is paramount. We plan to address these risk factors in future reports"
+
+Are they admitting the current analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions?
+
+Just run the multivariable models. 
+
+>"Moreover, our results are compatible with a causal role of ApoB in atherosclerosis, as we have openly acknowledged and supported in previous publications."
+
+
+**"Plaque Begets Plaque, ApoB does not"**
+
+>"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate[7]. In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid misinterpretations."
+
+
+</div>
+
+---
+
+
+## A Note on Letters to the Editor {.smaller}
+
+<div style="font-size: 130%">
+
+> "misinterpretations"
+
+</div>
+
+<a href="https://dictionary.cambridge.org/us/dictionary/english/beget" target="_blank">
+  <img src="assets/beget.png" width="70%" style="display: block; margin: auto;" />
+</a>
