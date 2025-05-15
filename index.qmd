@@ -1013,7 +1013,7 @@ Labeling this "sensitivity analysis" suggests robustness, but nothing was done t
 <div style="font-size: 75%; margin-bottom: 1em">
 <ul style="margin-top: 0; margin-bottom: 0; line-height: 1;">
   <li>Study-registered Primary endpoint: **%Δ NCPV over 12 mo**, not specifically sized for ApoB detection.</li>
-  <li>With *n = 100*, 80% power is reached for large and medium effects for 1 predictor linear regression.</li>
+  <li>With *n = 100*, 80% power is reached for large and medium effects for **1 predictor** linear regression.</li>
   <li>A null result after one year may be due to low power, not proof of no ApoB effect.</li>    
   <li>Note: even if it is adequately powered, it doesn't negate all the other issues like mathematical coupling, confounding, non-adjustment, short follow-up etc.</li>
 </ul>
