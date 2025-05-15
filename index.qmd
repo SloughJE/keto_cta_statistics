@@ -122,6 +122,8 @@ It is not a clean estimate of baseline influence.
 
 ## 1 ΔNCPV as Outcome Variable {.smaller}
 
+<div style="font-size: 90%; ">
+
 From Oldham* (1962): $\beta > 0 \quad\text{if}\quad \rho > \frac{\sigma_0}{\sigma_1}$
 
 The slope depends on:
@@ -136,8 +138,13 @@ In this study:
 - Almost all participants had increased NCPV
 - Implies $\rho$ was moderate-to-high, and $\sigma_1 > \sigma_0$
 
-These conditions tend to bias the slope upward; whether the resulting positive association reflects biology, coupling, or both cannot be determined from this model.
+These conditions tend to bias the slope upward. 
 
+The slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigma_1/\sigma_0$), and structural bias from subtracting $NCPV_0$ from both sides.
+
+</div>
+
+<br>
 <small>\*Source: [Oldham, 1962](https://www.sciencedirect.com/science/article/abs/pii/0021968162901169), *J. Chronic Dis.*</small>
 
 ---
@@ -339,9 +346,6 @@ This separates the contribution of ApoB from that of age.
 <br>
 Univariable Linear Models are make confounding almost certain, especially in small, non-randomized human data, undermining any claim of association or non-association.
 
-Univariable Linear Models are exploratory and can be misleading. 
-
-
 
 ## 2 Univariable Linear Models {.smaller}
 
@@ -350,8 +354,9 @@ But wait:
 > "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
 </div>
 
-So they **did use multivariable models**! — but only on the follow-up NCPV, not for ΔNCPV, the paper's main endpoint?
+So they **did use multivariable models**! but only on the follow-up NCPV, not for ΔNCPV, the paper's main endpoint?
 
+<br>
 This selective use raises questions:
 
 <ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85;">
@@ -360,8 +365,18 @@ This selective use raises questions:
   <li>Why include some adjusted models in the paper?</li>
 </ul>
 
-
+<br>
 Were multivariable models used selectively for some reason? And why not on the study's main endpoint?
+
+## 2 Univariable Linear Models {.smaller}
+
+> "...neither total exposure nor changes in baseline levels of ApoB and LDL-C were associated with changes in plaque. Conversely, baseline plaque was associated with plaque progression, supporting the notion that, in this population, plaque begets plaque but ApoB does not."
+
+<br>
+Stating this in the **conclusion** of the abstract, based solely on univariable regressions, is a clear case of overstated, methodologically flawed inference.
+
+<br>
+At best, this reflects naïve reporting; at worst, it's actively misleading.
 
 
 # Bayesian Modeling 
@@ -630,7 +645,7 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 1. **ΔNCPV as outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
-   Mathematical coupling → regression slopes reflect **algebra, not just biology**
+   Mathematical coupling → regression slope reflect **algebra, not just biology**
 
 2. **Univariable regressions**  
    Each predictor tested separately (ApoB, LDL-C, age…)  
@@ -653,8 +668,6 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
    Overstates evidence → **mathematically coupled, confounded, and fragile analysis**
 
 </div>
-
----
 
 
 # Additional Concerns
@@ -772,19 +785,19 @@ power_plotly
 ```
 
 
----
 
-## On the Heterogeneity of the LMHR Group {.smaller}
+## On the Heterogeneity of LMHR {.smaller}
 
 <div style="font-size: 85%">
 
-"It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keta-CTA study
+> "It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keta-CTA study
 
-["If, despite our results show that CVDrisk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
+> ["If, despite our results show that CVDrisk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
 
 <br>
 They say the group is heterogeneous (to downplay the pooled NCPV change), yet they ran univariable regressions and interpreted pooled Bayes factors as if the group were homogeneous.
 
+<br> 
 If a group is too heterogeneous to report pooled outcomes, it is also too heterogeneous to justify pooled inferences about predictors or mechanisms.
 
 If their CVD risk (e.g., plaque progression) is not coherent, then the category fails as a predictive or explanatory tool.
@@ -793,12 +806,12 @@ If their CVD risk (e.g., plaque progression) is not coherent, then the category 
 
 ---
 
-## On the Heterogeneity of the LMHR Group {.smaller}
+## On the Heterogeneity of LMHR {.smaller}
 
 <div style="font-size: 85%">
 
 
-"p50=18.8 mm3 IQR(37.3)."
+> "p50=18.8 mm3 IQR(37.3)."
 
 With a median of 18.8 mm³ and only 1–2 individuals showing regression, the IQR of 37.3 mm³ must be mostly skewed upward, not balanced.
 
@@ -823,9 +836,9 @@ This matters because:
 
 <div style="font-size: 75%">
 
-[Letter to the Editor](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101861)
+[Letter to the Editor](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101861) - External researchers raise concerns about the study’s methodology
 
-[Response to the Letter](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101862)
+[Response to the Letter](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101862) - Study authors respond to concerns
 
 From the response:
 
@@ -853,20 +866,23 @@ No output, diagnostics, or model fit provided. We are asked to trust their asser
 
 ## A Note on Letters to the Editor {.smaller}
 
-<div style="font-size: 75%">
+<div style="font-size: 65%">
 
 >"We agree that being able to identify patients with rapid plaque progression, and gaining better understanding of the mechanisms that mediate its pace (i.e. insulin resistance, inflammation, different dietary composition elements, etc.) is paramount. We plan to address these risk factors in future reports"
 
-Are they admitting the current analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions?
+Are they admitting their analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions? - Just run the multivariable models. 
 
-Just run the multivariable models. 
 
 >"Moreover, our results are compatible with a causal role of ApoB in atherosclerosis, as we have openly acknowledged and supported in previous publications."
 
 
 **"Plaque Begets Plaque, ApoB does not"**
 
->"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate[7]. In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid misinterpretations."
+>"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate[7](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology). 
+
+That journal citation used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. This was chosen after detecting heteroskedasticity in the residuals of a preliminary multiple linear regression.
+
+>"In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid misinterpretations."
 
 
 </div>
