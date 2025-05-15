@@ -37,6 +37,8 @@ John Slough
 - **Participants**: 100 lean, metabolically healthy adults on keto ≥2 yrs  
   - LDL-C ≥190 mg/dL, HDL-C ≥60 mg/dL, TG ≤80 mg/dL, ApoB 185 ± 51 mg/dL  
   <br>
+
+::: {.fragment}
   
 - **Findings**: No link between ApoB/LDL-C (baseline/change) and plaque progression  
 - **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression (ΔNCPV) 
@@ -44,7 +46,7 @@ John Slough
 <br>
 - **Conclusion**: *Plaque begets plaque; ApoB does not*  
 
-
+:::
 
 ---
 
@@ -496,8 +498,8 @@ A **Bayes factor (e.g., BF₁₀ = 6)** allows a stronger statement:
 
 ::: {.fragment}
 
-- Frequentist: *"No evidence of effect"*  
-- Bayesian: *"Evidence for no effect"*
+- **Frequentist**: *"No evidence of effect"*  
+- **Bayesian**: *"Evidence for no effect"*
 :::
 </div>
 
