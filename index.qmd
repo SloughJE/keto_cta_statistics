@@ -49,11 +49,13 @@ John Slough
 ---
 
 <div style="font-size: 170%; line-height: 1.4;">
+
 1. ΔNCPV as Outcome Variable  
 2. Univariable Linear Models  
 3. Bayesian Inference  
 4. Bayesian Prior Choice  
-5. Bayes Factor Interpretation  
+5. Bayes Factor Interpretation 
+
 </div>
 
 
@@ -63,7 +65,11 @@ John Slough
 
 ## 1 ΔNCPV as Outcome Variable {.smaller}
 
+
 > "All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the **change in NCPV**."
+
+::: {.fragment}
+
 
 Change in noncalcified plaque volume $\Delta \text{NCPV}$ was the outcome:
 
@@ -83,17 +89,23 @@ $$
 \text{NCPV}_{1} - \text{NCPV}_0 = \alpha + \beta \, \text{NCPV}_0 + \varepsilon
 $$
 
+:::
+
 ---
 
 ## 1 ΔNCPV as Outcome Variable {.smaller}
 
 <div style="font-size: 75%; line-height: 1.3;">
 
-["Mathematical coupling occurs when one variable directly or indirectly contains the whole or part of another, and the two variables are then analysed using correlation or regression. As a result, the statistical procedure of testing the null hypothesis — that the coefficient of correlation or the slope of regression is zero — might no longer be appropriate"](https://pubmed.ncbi.nlm.nih.gov/16526009/)
+["Mathematical coupling occurs when one variable directly or indirectly contains the whole or part of another, and the two variables are then analysed using correlation or regression. As a result, the statistical procedure of testing the null hypothesis — that the coefficient of correlation or the slope of regression is zero — might no longer be appropriate."](https://pubmed.ncbi.nlm.nih.gov/16526009/) - Tu & Gilthorpe, 2007
 
 </div>
 
+
 <br>
+
+::: {.fragment}
+
 <div style="font-size: 80%; line-height: 1.3;">
 
 Regression model: $\text{NCPV}_{1} - \text{NCPV}_0 = \alpha + \beta \, \text{NCPV}_0 + \varepsilon$
@@ -108,14 +120,21 @@ where:
 
 - $\rho = \operatorname{Cor}(\text{NCPV}_0,\ \text{NCPV}_1)$  
 - $\sigma_0$, $\sigma_1$ = SDs at baseline and follow-up
+
 </div>
+
+:::
+
+::: {.fragment}
 
 <div style="font-size: 80%; line-height: 1.3;">
 
 With baseline NCPV contributing to both predictor and outcome, the slope captures an **inseparable combination** of mathematical coupling and possible biological change. <br>
 It is not a clean estimate of baseline influence.
+
 </div>
 
+:::
 
 
 ---
@@ -131,6 +150,8 @@ The slope depends on:
 - **correlation** between baseline and follow-up ($\rho$)
 - **relative spread** of the two time points
 
+::: {.fragment}
+
 So a positive or negative slope arises **purely from the math**.
 
 In this study:
@@ -140,12 +161,21 @@ In this study:
 
 These conditions tend to bias the slope upward. 
 
+:::
+
+::: {.fragment}
+
 The slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigma_1/\sigma_0$), and structural bias from subtracting $NCPV_0$ from both sides.
+
+:::
 
 </div>
 
+::: {.fragment}
+
 <br>
 <small>\*Source: [Oldham, 1962](https://www.sciencedirect.com/science/article/abs/pii/0021968162901169), *J. Chronic Dis.*</small>
+:::
 
 ---
 
@@ -159,6 +189,8 @@ delta <- follow_up - baseline # Subtract the first set from the second to get th
 
 ```
 <br>
+
+::: {.fragment}
 
 ::: columns
 
@@ -241,6 +273,7 @@ ggplotly(p, height = 350, width = 500) %>%
 
 :::
 
+:::
 
 ---
 
@@ -258,6 +291,8 @@ This approach avoids mathematical coupling, reduces residual variance, and allow
 
 <br>
 
+::: {.fragment}
+
 
 You could test whether baseline NCPV predicts follow-up using a mixed-effects model with a Time × Baseline interaction:
 
@@ -267,29 +302,42 @@ You could test whether baseline NCPV predicts follow-up using a mixed-effects mo
 
 but the with the number of subjects this must be done carefully.
 
+:::
 
 ---
 
 ## 1 ΔNCPV as Outcome Variable {.smaller}
 
-<div style="font-size: 80%; line-height: 0.8;">
+<div style="font-size: 90%; line-height: 0.8;">
 You cannot determine whether a positive or negative slope from ΔNCPV ∼ NCPV₀ reflects biology or math, because the math builds the relationship.
 To isolate biological effects, you must model follow-up directly with baseline as a covariate — not as part of the outcome.
 
 <br>
 
-["Statisticians have repeatedly warned against correlating/regressing change with baseline due to two methodological concerns known as mathematical coupling and regression to the mean."](https://pubmed.ncbi.nlm.nih.gov/16526009/)
+::: {.fragment}
 
-["Mathematical coupling can lead to an artificially inflated association between initial value and change score when correlation or regression is used."](https://www.sciencedirect.com/science/article/abs/pii/S0895435609003497#:~:text=Mathematical%20coupling%20occurs%20%E2%80%9Cwhen%20one%20variable%20directly,posttreatment%20score%2C%20they%20contain%20the%20pretreatment%20score.)
+["Statisticians have repeatedly warned against correlating/regressing change with baseline due to two methodological concerns known as mathematical coupling and regression to the mean."](https://pubmed.ncbi.nlm.nih.gov/16526009/) - Tu & Gilthorpe, 2007
+
+["Mathematical coupling can lead to an artificially inflated association between initial value and change score when correlation or regression is used."](https://www.sciencedirect.com/science/article/abs/pii/S0895435609003497#:~:text=Mathematical%20coupling%20occurs%20%E2%80%9Cwhen%20one%20variable%20directly,posttreatment%20score%2C%20they%20contain%20the%20pretreatment%20score.) - Brown, 2009
+
+:::
+
 </div>
+
+
+
+::: {.fragment}
 
 <br>
 <br>
 **Plaque begets plaque**: biology or a mathematical artifact?
 
+:::
 
 <br>
-<br>
+
+::: {.fragment}
+
 <div style="font-size: 50%; margin-top: 1em;">
 
 **See also:**  
@@ -300,6 +348,7 @@ To isolate biological effects, you must model follow-up directly with baseline a
 
 </div>
 
+:::
 
 # Univariable Linear Models
 At best: exploratory. 
@@ -310,8 +359,14 @@ At worst: misleading.
 
 > "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
 
+::: {.fragment}
+
 Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
 each was tested separately in single-predictor regressions.
+
+:::
+
+::: {.fragment}
 
 This modeling choice introduces **omitted-variable bias**:  
 
@@ -319,6 +374,8 @@ This modeling choice introduces **omitted-variable bias**:
 > [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
 
 When a predictor is correlated with both the outcome and another omitted variable, its coefficient may absorb the effect of that omitted factor.
+
+:::
 
 ---
 
@@ -332,6 +389,8 @@ $$
 \Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
 $$
 
+::: {.fragment}
+
 But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** — it partly reflects the effect of age.
 
 
@@ -341,11 +400,19 @@ $$
 \Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
 $$
 
+:::
+
+::: {.fragment}
+
 This separates the contribution of ApoB from that of age.
+
+:::
+::: {.fragment}
 
 <br>
 Univariable Linear Models are make confounding almost certain, especially in small, non-randomized human data, undermining any claim of association or non-association.
 
+:::
 
 ## 2 Univariable Linear Models {.smaller}
 
@@ -353,6 +420,8 @@ But wait:
 <div style="font-size: 75%; margin-top: 1em;">
 > "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
 </div>
+
+::: {.fragment}
 
 So they **did use multivariable models**! but only on the follow-up NCPV, not for ΔNCPV, the paper's main endpoint?
 
@@ -366,18 +435,29 @@ This selective use raises questions:
 </ul>
 
 <br>
-Were multivariable models used selectively for some reason? And why not on the study's main endpoint?
+
+:::
+
+::: {.fragment}
+
+Were multivariable models used selectively for some reason? And why not on ΔNCPV?
+
+:::
 
 ## 2 Univariable Linear Models {.smaller}
 
-> "...neither total exposure nor changes in baseline levels of ApoB and LDL-C were associated with changes in plaque. Conversely, baseline plaque was associated with plaque progression, supporting the notion that, in this population, plaque begets plaque but ApoB does not."
+> "Neither change in ApoB...baseline ApoB, nor total LDL-C exposure... were associated with the change in noncalcified plaque volume (NCPV) or TPS. All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the change in NCPV."
+
+::: {.fragment}
 
 <br>
-Stating this in the **conclusion** of the abstract, based solely on univariable regressions, is a clear case of overstated, methodologically flawed inference.
+Stating this in the **abstract**, based solely on univariable regressions, is a clear case of overstated, methodologically flawed inference.
+:::
+::: {.fragment}
 
 <br>
 At best, this reflects naïve reporting; at worst, it's actively misleading.
-
+:::
 
 # Bayesian Modeling 
 Unusual. Fragile. Overstated.
@@ -386,7 +466,10 @@ Unusual. Fragile. Overstated.
 ## 3 Bayesian Inference {.smaller}
 
 <div style="font-size: 75%;">
+
 **Frequentist:**
+
+::: {.fragment}
 
 Assuming there is no true association between ApoB and ΔNCPV, how likely is it that we'd observe a slope as large (or larger) than the one we found, just by chance?
 
@@ -396,8 +479,12 @@ If p-value (p > 0.05) a frequentist analysis can say:
 
 It **cannot** say the null is likely true, or produce the probability that there is no association, just that the data were inconclusive.
 
+:::
+
 <br>
 **Bayesian:**
+
+::: {.fragment}
 
 How well do the data fit under two competing models, one with no association (null), and one with a range of plausible effect sizes for ApoB (alternative)?
 
@@ -405,9 +492,13 @@ A **Bayes factor (e.g., BF₁₀ = 6)** allows a stronger statement:
 
 *"The observed data are 6 times more likely (moderate evidence) under the 'no association' model than under the alternative model that assumes some effect from ApoB (as defined by the prior)."*
 
+:::
+
+::: {.fragment}
+
 - Frequentist: *"No evidence of effect"*  
 - Bayesian: *"Evidence for no effect"*
-
+:::
 </div>
 
 ---
@@ -420,7 +511,13 @@ A **Bayes factor (e.g., BF₁₀ = 6)** allows a stronger statement:
 
 </div>
 
+::: {.fragment}
+
 So, they turn to Bayesian inference to "support" their finding that **ApoB has no association with plaque progression**.
+
+:::
+
+::: {.fragment}
 
 <br>
 This is *unusual* in a non-randomized, uncontrolled, 1-year observational study on a highly restricted sample:
@@ -431,8 +528,14 @@ This is *unusual* in a non-randomized, uncontrolled, 1-year observational study 
   <li>Bayesian inference used to imply [absence of effect, not just lack of evidence](https://orca.cardiff.ac.uk/id/eprint/163206/4/tendeiro-et-al-2024-diagnosing-the-misuse-of-the-bayes-factor-in-applied-research.pdf#page=6&search=Presence%20versus%20absence)</li>
 </ul>
 
+:::
+
+::: {.fragment}
+
 <br>
 Despite the limited model and context, they present the result as confirmatory.
+
+:::
 
 ---
 
@@ -442,7 +545,13 @@ Despite the limited model and context, they present the result as confirmatory.
 <br>
 They are applying a stronger-sounding statistical framework onto a structurally weak analysis.
 
+::: {.fragment}
+
 This is a **misuse** of Bayesian inference. 
+
+:::
+
+::: {.fragment}
 
 <br>
 
@@ -451,7 +560,7 @@ Not because Bayesian methods are invalid.
 <br>
 Because they're being used to amplify certainty in an analysis that lacks adjustment, control, or transparency about its assumptions.
 
-
+:::
 ---
 
 ## 4 Bayesian Prior Choice {.smaller}
@@ -463,7 +572,10 @@ Because they're being used to amplify certainty in an analysis that lacks adjust
 
 </div>
 
+
 <div style="font-size: 90%;">
+
+::: {.fragment}
 
 <br>
 **Bayesian Prior**: represents your belief about likely effect sizes before seeing the data.
@@ -478,9 +590,15 @@ From the [BayesFactor documentation](https://cran.r-project.org/web/packages/Bay
   <li>**"ultrawide"** → rscale = √2 / 2 ≈ **0.707**</li>
 </ul>
 
+:::
+
+::: {.fragment}
+
 `rscale` of **0.8** is **wider than "ultrawide"**. It is not a "moderately informative" prior. It's actually a weakly informative or vague prior, placing most of its weight on large effects.
 
 A moderately informative prior would typically correspond to "medium" (≈ 0.354) or "wide" (0.5), which place more mass on smaller effects.
+
+:::
 
 </div>
 
@@ -494,11 +612,18 @@ Labeling an **r = 0.8** prior as “moderately informative” or “conservative
 
 <br>
 
+::: {.fragment}
+
 Their choice of prior is subjective, influential, and not tested for robustness.
 
 - The model was set up to expect large ApoB effects, so small observed effects are treated as evidence for no effect. 
 
 - **Best practice** is to run a **sensitivity analysis**, to see whether conclusions change with different priors.
+
+:::
+
+::: {.fragment}
+
 
 <div style="font-size: 80%;">
 
@@ -507,7 +632,7 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 ["a researcher can have a very strong opinion about the model parameter values, and this opinion (via the prior) can drive the final model estimates."](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.608045/full)
 
 </div>
-
+:::
 ---
 
 ## 4 Bayesian Prior Choice {.smaller}
@@ -602,11 +727,22 @@ This kind of [rscale sensitivity analysis](https://link.springer.com/article/10.
 >"In other words, these data suggest it is 6 to 10 times more likely that the hypothesis of no association between these variables (the null) is true as
 compared to the alternative."
 
+::: {.fragment}
+
 [That is a overstatement of what the Bayes Factor tells us.](https://lakens.github.io/statistical_inferences/04-bayes.html#:~:text=One%20might%20therefore%20believe%20that%20Bayes%20factors%20tell%20us%20something%20about%20the%20probability%20that%20a%20hypothesis%20true%2C%20but%20this%20is%20incorrect.)
+
+:::
+
+::: {.fragment}
 
 A Bayes factor of 6–10 means the **data** are 6–10× more likely under the **null model** than under the **alternative model**, not that the *null hypothesis is 6–10×* more likely to be true.
 
-They *could* have said: "The data are 6–10 times more likely under the no-association model than under the alternative"
+
+They could have said: "The data are 6–10 times more likely under the no-association model than under the alternative"
+
+:::
+
+::: {.fragment}
 
 $$
 \text{Posterior Odds} = \text{Bayes Factor} \times \text{Prior Odds}
@@ -616,6 +752,7 @@ To claim that the null is 6–10× more likely to be *true*, they would have to 
 
 <small>Source: [Bayes Factors – Kass Raferty, 1995](https://www.nbi.dk/~koskinen/Teaching/AdvancedMethodsInAppliedStatistics2018/StudentPresentations/Bayes_factors_Jonas_S_Juul.pdf)</small>
 
+:::
 
 ## 5 Bayes Factor Interpretation {.smaller}
 
@@ -641,31 +778,44 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 ## Summary {.smaller}
 
-<div style="font-size: 85%; line-height: 1.2;">
+<div style="font-size: 82%; line-height: 1.2;">
+
+::: {.fragment}
 
 1. **ΔNCPV as outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
    Mathematical coupling → regression slope reflect **algebra, not just biology**
+:::
+::: {.fragment}
 
 2. **Univariable regressions**  
    Each predictor tested separately (ApoB, LDL-C, age…)  
    No confounder adjustment → **biased, unreliable, low credibility estimates**
+:::
+::: {.fragment}
 
 3. **Bayesian inference**  
    Bayes inference used to support "no ApoB effect" & "plaque begets plaque"<br> 
    Unadjusted, observational data → **misleading, unusual use of Bayesian inference**
+:::
+::: {.fragment}
 
 4. **Prior choice (rscale = 0.8)**  
    Prior assumes large effects<br>
    No sensitivity analysis → results likely **prior-driven**
+:::
+::: {.fragment}
 
 5. **Bayes factor interpretation**  
    Claimed null is "6–10× more likely"<br>
    Bayes factor misstated as posterior probability → compares model fit, **not truth**
+:::
+::: {.fragment}
 
 6. **Headline claim**  
    "Plaque Begets Plaque, ApoB Does Not"<br>
    Overstates evidence → **mathematically coupled, confounded, and fragile analysis**
+:::
 
 </div>
 
@@ -676,17 +826,27 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 ## No Adjustment for Multiple Comparisons {.smaller}
 
-Predictors tested against **two** outcomes (Δ-NCPV, Δ-TPS) → ≥10 comparisons
+At least 14 distinct linear regressions were reported, with likely many more from exploratory models referenced in figures and supplements.
+
+Numerous tests increase false positive risk, yet no multiple testing correction was applied.
+
+::: {.fragment}
+
+Such as:
+
 
 * Bonferroni: α = 0.05 → α′ ≈ 0.005  
   Baseline CAC (P < 0.001) would survive; others might not  
 * Benjamini–Hochberg FDR maintains power with correlated tests
 
-Numerous regressions were run — increasing **false positive risk**  
-But no multiple testing correction was applied.
+:::
+
+::: {.fragment}
 
 Perhaps the authors viewed this as exploratory, where correction is often skipped —  
 **but then why title the paper "Plaque Begets Plaque, ApoB Does Not"?**
+
+:::
 
 ---
 
@@ -699,11 +859,17 @@ CCTA cannot report negative plaque → both outcomes are **left-censored at 0**
 This affects not just modeling but measurement:  
 When true plaque ≈ 0, **error is asymmetric** — it can only overestimate.
 
+::: {.fragment}
+
 ΔNCPV, their primary outcome, is a change score between two bounded, skewed measures.  
 Likely to produce **non-normal residuals** and **heteroscedasticity** (e.g., larger spread at higher baseline).
 
 > If smaller baseline values were also linked to larger increases,  
 > this may reflect the effects of left-censoring and error asymmetry — not true biological acceleration.
+
+:::
+
+::: {.fragment}
 
 These issues are **clear in TPS**, and may affect NCPV, but diagnostics are not shown.
 
@@ -711,6 +877,8 @@ These issues are **clear in TPS**, and may affect NCPV, but diagnostics are not 
 *performance::check_model() was run — but no output provided*
 
 They could have considered methods to address this such as: **Tobit regression**, **log-transform**, or **robust SEs**
+
+:::
 
 </div>
 
@@ -794,13 +962,20 @@ power_plotly
 
 > ["If, despite our results show that CVDrisk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
 
+::: {.fragment}
+
 <br>
 They say the group is heterogeneous (to downplay the pooled NCPV change), yet they ran univariable regressions and interpreted pooled Bayes factors as if the group were homogeneous.
+
+:::
+::: {.fragment}
 
 <br> 
 If a group is too heterogeneous to report pooled outcomes, it is also too heterogeneous to justify pooled inferences about predictors or mechanisms.
 
 If their CVD risk (e.g., plaque progression) is not coherent, then the category fails as a predictive or explanatory tool.
+
+:::
 
 </div>
 
@@ -817,8 +992,14 @@ With a median of 18.8 mm³ and only 1–2 individuals showing regression, the IQ
 
 A wide IQR here reflects high inter-individual variability in outcomes among the LMHRs, variability in progression of NCPV, as all but a few individuals had more plaque at follow up.
 
+::: {.fragment}
+
 In other words: With nearly all LMHRs showing plaque progression, a wide IQR (37.3 mm³) doesn’t indicate balanced variability—it reflects differing degrees of worsening.
 
+:::
+::: {.fragment}
+
+<br>
 
 This matters because:
 
@@ -828,11 +1009,13 @@ This matters because:
   <li>It calls for adjusted modeling to reduce noise and account for confounding, not pooled univariable regressions and Bayes factors interpreted as strong evidence.</li>
 </ul>
 
+:::
+
 </div>
 
 ---
 
-## A Note on Letters to the Editor {.smaller}
+## Notes on Letters to the Editor {.smaller}
 
 <div style="font-size: 75%">
 
@@ -840,9 +1023,15 @@ This matters because:
 
 [Response to the Letter](https://www.jacc.org/doi/epdf/10.1016/j.jacadv.2025.101862) - Study authors respond to concerns
 
+::: {.fragment}
+
 From the response:
 
->"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be **subjective**"
+>"Regarding the analytical points brought forward, we are aware of the relevance of linear assumptions to obtain accurate estimators. Since **residual plot evaluation** can also be **subjective**..."
+
+:::
+
+::: {.fragment}
 
 Objective, quantitative statistical tests also exist for assessing model assumptions:
 
@@ -854,43 +1043,91 @@ Objective, quantitative statistical tests also exist for assessing model assumpt
 
 The `performance::check_model()` function they cite automatically generates most of these checks.
 
+:::
+::: {.fragment}
+
 It’s unclear why they wouldn't include or reference the output.
+
+:::
+
+::: {.fragment}
 
 > "...we followed their suggestion and re-ran all models with robust linear regression...as expected, there were small differences with the published estimates, all models using robust regression were consistent with what was reported."
 
+:::
+::: {.fragment}
+
 No output, diagnostics, or model fit provided. We are asked to trust their assertion.
+
+:::
 
 </div>
 
 ---
 
-## A Note on Letters to the Editor {.smaller}
+## Notes on Letters to the Editor {.smaller}
 
-<div style="font-size: 65%">
+<div style="font-size: 90%">
 
 >"We agree that being able to identify patients with rapid plaque progression, and gaining better understanding of the mechanisms that mediate its pace (i.e. insulin resistance, inflammation, different dietary composition elements, etc.) is paramount. We plan to address these risk factors in future reports"
 
-Are they admitting their analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions? - Just run the multivariable models. 
+::: {.fragment}
 
+Are they admitting their analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions?
+
+Just run and report the multivariable, adjusted models. 
+
+:::
+
+::: {.fragment}
+
+<br>
 
 >"Moreover, our results are compatible with a causal role of ApoB in atherosclerosis, as we have openly acknowledged and supported in previous publications."
 
+:::
+::: {.fragment}
+
+<br>
 
 **"Plaque Begets Plaque, ApoB does not"**
 
->"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate[7](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology). 
-
-That journal citation used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. This was chosen after detecting heteroskedasticity in the residuals of a preliminary multiple linear regression.
-
->"In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid misinterpretations."
-
+:::
 
 </div>
 
 ---
 
+## Notes on Letters to the Editor {.smaller}
 
-## A Note on Letters to the Editor {.smaller}
+<div style="font-size: 85%">
+
+
+>"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology). 
+
+::: {.fragment}
+
+That journal citation used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. 
+
+This approach was chosen after detecting heteroskedasticity in a preliminary multivariable linear regression. Both models were multivariable (adjusted), not univariable.
+
+:::
+
+<br>
+
+::: {.fragment}
+
+>"In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid **misinterpretations.**"
+
+:::
+
+</div>
+
+
+---
+
+
+## Notes on Letters to the Editor {.smaller}
 
 <div style="font-size: 130%">
 
@@ -898,6 +1135,11 @@ That journal citation used a random-effects repeated-measures model, a type of l
 
 </div>
 
+::: {.fragment}
+
 <a href="https://dictionary.cambridge.org/us/dictionary/english/beget" target="_blank">
   <img src="assets/beget.png" width="70%" style="display: block; margin: auto;" />
 </a>
+
+:::
+
