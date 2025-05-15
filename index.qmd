@@ -228,7 +228,7 @@ p_raw = ggplot(df, aes(x = baseline, y = follow_up)) +
   annotate("text", x = min(df$baseline) + 30, y = max(df$follow_up),
            label = label_raw, color = "darkred", hjust = 0, size = 4) +
   labs(
-    title = "Basline vs Follow-up",
+    title = "Baseline vs Follow-up",
     subtitle = "Two independent variables — no true effect",
     x = "Baseline",
     y = "Follow up"
@@ -259,7 +259,7 @@ p = ggplot(df, aes(x = baseline, y = delta)) +
   annotate("text", x = min(df$baseline) + 30, y = max(df$delta),
            label = label_change, color = "darkred", hjust = 0, size = 4) +
   labs(
-    title = "Basline vs Change (Follow up - Baseline)",
+    title = "Baseline vs Change (Follow up - Baseline)",
     subtitle = "Mathematical Coupling Creates a Spurious Slope",
     x = "Baseline",
     y = "Follow up - Baseline (Δ)"
@@ -372,10 +372,16 @@ each was tested separately in single-predictor regressions.
 
 This modeling choice introduces **omitted-variable bias**:  
 
-> "...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates."  
-> [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
+"...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
 
-When a predictor is correlated with both the outcome and another omitted variable, its coefficient may absorb the effect of that omitted factor.
+:::
+
+::: {.fragment}
+
+<br>
+A predictor may appear significant in a univariable model, but its effect can vanish once relevant covariates are included
+
+This is very common, especially in observational studies, with small datasets and highly correlated predictors.
 
 :::
 
@@ -393,7 +399,7 @@ $$
 
 ::: {.fragment}
 
-But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** — it partly reflects the effect of age.
+But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** and partly reflects the effect of age.
 
 
 A more appropriate model would be:
@@ -412,39 +418,63 @@ This separates the contribution of ApoB from that of age.
 ::: {.fragment}
 
 <br>
-Univariable Linear Models are make confounding almost certain, especially in small, non-randomized human data, undermining any claim of association or non-association.
+Univariable linear models make omitted-variable bias and likely confounding almost certain, especially in small non-randomized human data. This undermines any claim of association or non-association.
 
 :::
+
+
+---
+
 
 ## 2 Univariable Linear Models {.smaller}
 
 But wait:
 <div style="font-size: 75%; margin-top: 1em;">
+
 > "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
-</div>
 
 ::: {.fragment}
 
-So they **did use multivariable models**! but only on the follow-up NCPV, not for ΔNCPV, the paper's main endpoint?
+Additionally, Table 3 includes one multivariable regression on the primary outcome $\Delta \text{NCPV}$:
 
-<br>
-This selective use raises questions:
-
-<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85;">
-  <li>Why not model ΔNCPV with adjustment for known confounders?</li>
-  <li>Why apply different modeling rules depending on the predictor?</li>
-  <li>Why include some adjusted models in the paper?</li>
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85; padding-left: 1.5em;">
+  <li>$\Delta \text{NCPV} = \alpha + \beta_1 \, \text{CAC}_{\text{bl}} + \beta_2 \, \Delta \text{ApoB} + \beta_3 \, (\text{CAC}_{\text{bl}} \times \Delta \text{ApoB}) + \varepsilon$</li>
+  <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
 </ul>
 
+But the paper provides absolutely no explanation or rationale for this model. 
+
+:::
+
+</div>
+
 <br>
+<div style="font-size: 85%; margin-top: 1em;">
+
+::: {.fragment}
+
+So they did use three **multivariable models**.
+One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
 
 :::
 
 ::: {.fragment}
 
-Were multivariable models used selectively for some reason? And why not on ΔNCPV?
+They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
 
 :::
+
+::: {.fragment}
+
+<br>
+This selective use raises questions.
+
+
+:::
+
+</div>
+
+---
 
 ## 2 Univariable Linear Models {.smaller}
 
@@ -453,12 +483,12 @@ Were multivariable models used selectively for some reason? And why not on ΔNCP
 ::: {.fragment}
 
 <br>
-Stating this in the **abstract**, based solely on univariable regressions, is a clear case of overstated, methodologically flawed inference.
+Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
 :::
 ::: {.fragment}
 
 <br>
-At best, this reflects naïve reporting; at worst, it's actively misleading.
+At best, this reflects naïve reporting. At worst, it's actively misleading.
 :::
 
 # Bayesian Modeling 
@@ -509,7 +539,7 @@ A **Bayes factor (e.g., BF₁₀ = 6)** allows a stronger statement:
 
 <div style="font-size: 80%;">
 
-> "Since lack of statistical signifcance (ie, P > 0.05) should not be interpreted as evidence in favor of the null but simply a failure to reject the null, the addition of Bayesian inference adds credence to finding that there is no association between NCPV vs LDL-C or ApoB..."
+> "Since lack of statistical significance (ie, P > 0.05) should not be interpreted as evidence in favor of the null but simply a failure to reject the null, the addition of Bayesian inference adds credence to finding that there is no association between NCPV vs LDL-C or ApoB..."
 
 </div>
 
@@ -526,8 +556,8 @@ This is *unusual* in a non-randomized, uncontrolled, 1-year observational study 
 
 <ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
   <li>Study design not suited for strong inferences about presence or absence of associations</li>
-  <li>Univariable, unadjusted models: reduce credibility of any statistical conclusion</li>
-  <li>Bayesian inference used to imply [absence of effect, not just lack of evidence](https://orca.cardiff.ac.uk/id/eprint/163206/4/tendeiro-et-al-2024-diagnosing-the-misuse-of-the-bayes-factor-in-applied-research.pdf#page=6&search=Presence%20versus%20absence)</li>
+  <li>Univariable, unadjusted models reduce the credibility of any statistical conclusion</li>
+  <li>Bayesian inference is used to imply [absence of effect, not just lack of evidence](https://orca.cardiff.ac.uk/id/eprint/163206/4/tendeiro-et-al-2024-diagnosing-the-misuse-of-the-bayes-factor-in-applied-research.pdf#page=6&search=Presence%20versus%20absence)</li>
 </ul>
 
 :::
@@ -740,21 +770,18 @@ compared to the alternative."
 A Bayes factor of 6–10 means the **data** are 6–10× more likely under the **null model** than under the **alternative model**, not that the *null hypothesis is 6–10×* more likely to be true.
 
 
-They could have said: "The data are 6–10 times more likely under the no-association model than under the alternative"
+They could have said: "The data are 6–10 times more likely under the no-association model than under the alternative."
 
 :::
 
 ::: {.fragment}
 
-$$
-\text{Posterior Odds} = \text{Bayes Factor} \times \text{Prior Odds}
-$$
-
-To claim that the null is 6–10× more likely to be *true*, they would have to assume **prior odds = 1:1** — and state that explicitly. They didn’t.
+<br>
+Bayes factors update prior odds into posterior odds. Claiming the null is 6–10× more likely assumes equal prior odds, something the authors never stated.
 
 <small>Source: [Bayes Factors – Kass Raferty, 1995](https://www.nbi.dk/~koskinen/Teaching/AdvancedMethodsInAppliedStatistics2018/StudentPresentations/Bayes_factors_Jonas_S_Juul.pdf)</small>
 
-:::
+::: 
 
 ## 5 Bayes Factor Interpretation {.smaller}
 
@@ -786,7 +813,7 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 1. **ΔNCPV as outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
-   Mathematical coupling → regression slope reflect **algebra, not just biology**
+   Mathematical coupling → regression slope reflects **algebra, not just biology**
 :::
 ::: {.fragment}
 
@@ -816,7 +843,7 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 6. **Headline claim**  
    "Plaque Begets Plaque, ApoB Does Not"<br>
-   Overstates evidence → **mathematically coupled, confounded, and fragile analysis**
+   Overstates evidence → **statistically inadequate, selectively modeled, fragile analysis**
 :::
 
 </div>
@@ -884,13 +911,109 @@ They could have considered methods to address this such as: **Tobit regression**
 
 </div>
 
+---
+
+## Sensitivity Analysis {.smaller}
+
+<div style="font-size: 80%;">
+>Study abstract: "Plaque progression predictors were assessed with linear regression and Bayes factors. Diet adherence and baseline cardiovascular disease risk sensitivity analyses were performed."<br>
+"Sensitivity analyses on participants with >80% of bHB measurements above 0.3 mmol/L (Supplemental Tables 2 to 4) and with high calculated 10-year cardiovascular risk showed similar results to those just reported."
+
+</div>
+
+<div style="font-size: 85%;">
+
+::: {.fragment}
+
+The authors conducted an apparent **post hoc** "sensitivity analyses" in two subgroups:
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
+  <li>**High adherence** ($n = 56$): >80% of $\beta$-hydroxybutyrate values ≥ 0.3 mmol/L</li>
+  <li>**High CVD risk** ($n = 28$): MESA 10-year risk >5%</li>
+</ul>
+
+:::
+
+::: {.fragment}
+
+<br>
+The subgroups may partially overlap — the paper doesn’t say.  
+Without clarity, it's unclear if results reflect **replication** or **redundancy**. 
+
+:::
+
+::: {.fragment}
+
+<br>
+The same individuals may be contributing to both sets of sensitivity analyses.
+
+This limits interpretability and weakens claims of consistency across groups.
+:::
+
+
+
+</div>
+
+---
+
+## Sensitivity Analysis {.smaller}
+
+<div style="font-size: 90%;">
+
+Exact same modeling strategy:
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
+  <li>Univariable linear regressions</li>
+  <li>No covariate adjustment or interaction testing on main outcomes reported (except one model)</li>
+  <li>No rationale for subgroup thresholds</li>
+</ul>
+
+::: {.fragment}
+
+**Results**: "similar results to those just reported". But these are smaller samples with more noise.
+
+:::
+
+</div>
+
+
+<div style="font-size: 70%;">
+
+::: {.fragment}
+
+| Model               | Table 3<br>(Full, *n* = 100)     | Supplemental Table 4<br>(High Adherence, *n* = 56) | Supplemental Table 5<br>(High CVD Risk, *n* = 28) |
+|---------------------|----------------------------------|---------------------------------------------------|---------------------------------------------------|
+| ΔNCPV ~ ΔApoB       | β = 0.01  <br> P = 0.91  <br> BF > 10.0 | β = 0.04 <br> P = 0.63 <br> BF = 6.90 | β = 0.10 <br> P = 0.57 <br> BF = 4.76 |
+| ΔNCPV ~ ApoB₀       | β = 0.06 <br> P = 0.33 <br> **BF = 6.3** | β = 0.06 <br> P = 0.09 <br> **BF = 1.83** | β = 0.11 <br> P = 0.52 <br> BF = 4.57 |
+
+:::
+
+</div>
+
+<div style="font-size: 70%; text-align: center;">
+
+::: {.fragment}
+
+Compared to the full sample, the high adherence group offers only anecdotal evidence for the null.
+
+:::
+
+</div>
+
+
+::: {.fragment}
+Labeling this "sensitivity analysis" suggests robustness, but nothing was done to test robustness statistically.
+:::
+
+---
+
 
 ## Possibly Underpowered Study {.smaller}
 
 <div style="font-size: 75%; margin-bottom: 1em">
 <ul style="margin-top: 0; margin-bottom: 0; line-height: 1;">
-  <li>Study Registered Primary endpoint: **%Δ NCPV over 12 mo**, not specifically sized for ApoB detection.</li>
-  <li>With *n = 100*, 80 % power is reached for large and medium effects for 1 predictor linear regression.</li>
+  <li>Study-registered Primary endpoint: **%Δ NCPV over 12 mo**, not specifically sized for ApoB detection.</li>
+  <li>With *n = 100*, 80% power is reached for large and medium effects for 1 predictor linear regression.</li>
   <li>A null result after one year may be due to low power, not proof of no ApoB effect.</li>    
   <li>Note: even if it is adequately powered, it doesn't negate all the other issues like mathematical coupling, confounding, non-adjustment, short follow-up etc.</li>
 </ul>
@@ -962,20 +1085,25 @@ power_plotly
 
 > "It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keta-CTA study
 
-> ["If, despite our results show that CVDrisk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
+> ["If, despite our results show that CVD risk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
 
 ::: {.fragment}
 
 <br>
-They say the group is heterogeneous (to downplay the pooled NCPV change), yet they ran univariable regressions and interpreted pooled Bayes factors as if the group were homogeneous.
+The group is heterogeneous (to downplay the pooled NCPV change), yet they ran univariable regressions and interpreted Bayes factors on that group.
 
 :::
 ::: {.fragment}
 
 <br> 
-If a group is too heterogeneous to report pooled outcomes, it is also too heterogeneous to justify pooled inferences about predictors or mechanisms.
+If a group is too heterogeneous to report pooled outcomes, it is also too heterogeneous for pooled inferences about predictors or mechanisms.
 
-If their CVD risk (e.g., plaque progression) is not coherent, then the category fails as a predictive or explanatory tool.
+If their CVD risk (e.g., plaque progression) is not coherent, then the category fails as a predictive or explanatory label.
+
+:::
+::: {.fragment}
+
+All clinical populations are heterogeneous in risk. 
 
 :::
 
@@ -1040,7 +1168,7 @@ Objective, quantitative statistical tests also exist for assessing model assumpt
 <ul style="margin-top: 0; margin-bottom: 0; font-size: 85%; line-height: 1; padding-left: 1.5em;">
   <li>Normality: Shapiro-Wilk, Kolmogorov–Smirnov, Q-Q plots (visual / quantitative)</li>
   <li>Homoscedasticity: Breusch–Pagan, White test</li>
-  <li>Influence / leverage: Cook’s distance, leverage plots (visual based on quantitative values)</li>
+  <li>Influence / leverage: Cook's distance, leverage plots (visual based on quantitative values)</li>
 </ul>
 
 The `performance::check_model()` function they cite automatically generates most of these checks.
@@ -1135,12 +1263,14 @@ This approach was chosen after detecting heteroskedasticity in a preliminary mul
 
 > "misinterpretations"
 
+> Plaque Begets Plaque, ApoB does not
+
 </div>
 
 ::: {.fragment}
 
 <a href="https://dictionary.cambridge.org/us/dictionary/english/beget" target="_blank">
-  <img src="assets/beget.png" width="70%" style="display: block; margin: auto;" />
+  <img src="assets/beget.png" width="50%" style="display: block; margin: auto;" />
 </a>
 
 :::
