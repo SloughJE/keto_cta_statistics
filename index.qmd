@@ -248,34 +248,42 @@ $$
 </div>
 
 
-<br>
+<div style="font-size: 80%; line-height: 1.3;">
 
 ::: {.fragment}
-
-<div style="font-size: 80%; line-height: 1.3;">
 
 Regression model: $\text{NCPV}_{1} - \text{NCPV}_0 = \alpha + \beta \, \text{NCPV}_0 + \varepsilon$
 
-<br>
-The regression coefficient (slope): $\beta  = \frac{\operatorname{Cov}(\Delta \text{NCPV},\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)} = \frac{\operatorname{Cov}((\text{NCPV}_1 - \text{NCPV}_0),\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)}$
+:::
+::: {.fragment}
 
 <br>
-This simplifies to: $\beta = \frac{\rho\, \sigma_1 - \sigma_0}{\sigma_0}$  
+
+$\beta = \frac{\operatorname{Cov}(\Delta \text{NCPV},\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)} = \frac{\operatorname{Cov}(\text{NCPV}_1 - \text{NCPV}_0,\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)}$
+
+$= \frac{\operatorname{Cov}(\text{NCPV}_1,\ \text{NCPV}_0) - \operatorname{Var}(\text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)} = \frac{\rho\, \sigma_1 \sigma_0 - \sigma_0^2}{\sigma_0^2}$
+
+$= \frac{\rho\, \sigma_1 - \sigma_0}{\sigma_0} = \rho \cdot \frac{\sigma_1}{\sigma_0} - 1$
+
 
 where:
 
-- $\rho = \operatorname{Cor}(\text{NCPV}_0,\ \text{NCPV}_1)$  
-- $\sigma_0$, $\sigma_1$ = SDs at baseline and follow-up
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
+  <li>$\rho = \operatorname{Cor}(\text{NCPV}_0,\ \text{NCPV}_1)$</li>
+  <li>$\sigma_0$, $\sigma_1$ = SDs at baseline and follow-up</li>
+</ul>
+
+:::
 
 </div>
 
-:::
 
 ::: {.fragment}
 
 <div style="font-size: 80%; line-height: 1.3;">
 
-With baseline NCPV contributing to both predictor and outcome, the slope captures an **inseparable combination** of mathematical coupling and possible biological change. <br>
+With baseline NCPV contributing to both predictor and outcome, the slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigma_1/\sigma_0$), and structural bias from subtracting $NCPV_0$ from both sides.
+
 It is not a clean estimate of baseline influence.
 
 </div>
@@ -289,7 +297,7 @@ It is not a clean estimate of baseline influence.
 
 <div style="font-size: 85%; ">
 
-From Oldham* (1962): $\beta > 0 \quad\text{if}\quad \rho > \frac{\sigma_0}{\sigma_1}$
+From Oldham test* (1962): $\beta > 0 \quad\text{if}\quad \rho > \frac{\sigma_0}{\sigma_1}$
 
 The slope depends on:
 
@@ -298,20 +306,29 @@ The slope depends on:
 
 ::: {.fragment}
 
-A negative slope can arise entirely from mathematical coupling, while a positive slope in this model always includes some mathematical artifact but may also reflect a genuine biological association.
+<div style="font-size: 85%; ">
+
+Because coupling alone pushes $\beta$ downward by 1, a positive $\beta$ is possible only when $\rho \cdot \frac{\sigma_1}{\sigma_0} > 1$.
+That inequality can be satisfied without any causal baseline effect, for example, if $\sigma_1$ exceeds $\sigma_0$ because of simple growth, or if measurement reliability inflates $\rho$. A positive slope therefore does not by itself demonstrate a biological baseline influence; it merely tells us that the positive $\rho \cdot \frac{\sigma_1}{\sigma_0}$ component has outweighed the −1 artifact.
+
+</div>
+
+:::
+::: {.fragment}
 
 In this study:
 
-- Almost all participants had increased NCPV
-- Implies $\rho$ was moderate-to-high, and $\sigma_1 > \sigma_0$
-
-These conditions tend to bias the slope upward. 
-
+- Almost all participants had increased NCPV, so $\rho$ is plausibly high
+- if increases were heterogeneous, $\sigma_1$ is also likely > $\sigma_0$
 :::
 
 ::: {.fragment}
 
-The slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigma_1/\sigma_0$), and structural bias from subtracting $NCPV_0$ from both sides.
+<div style="font-size: 90%; ">
+
+A positive slope in a mathematically coupled regression signals only that baseline–follow-up correlation and/or variance growth were strong enough to offset the unavoidable −1 artifact. Whether it reflects true biology, and whether it exaggerates or understates that biology, cannot be determined from β alone.
+
+</div>
 
 :::
 
