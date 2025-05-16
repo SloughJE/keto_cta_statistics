@@ -50,22 +50,163 @@ John Slough
 
 ---
 
-<div style="font-size: 170%; line-height: 1.4;">
+<div style="font-size: 160%; line-height: 1.3;">
 
-1. ΔNCPV as Outcome Variable  
-2. Univariable Linear Models  
+1. Univariable Linear Models  
+2. ΔNCPV as Outcome Variable  
 3. Bayesian Inference  
 4. Bayesian Prior Choice  
-5. Bayes Factor Interpretation 
+5. Bayes Factor Interpretation
+6. Additional Concerns
 
 </div>
+
+
+# Univariable Linear Models
+At best: exploratory. 
+
+At worst: misleading.
+
+## 1 Univariable Linear Models {.smaller}
+
+> "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
+
+::: {.fragment}
+
+Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
+each was tested separately in single-predictor regressions.
+
+:::
+
+::: {.fragment}
+
+This modeling choice introduces **omitted-variable bias**:  
+
+"...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
+
+:::
+
+::: {.fragment}
+
+<br>
+A predictor may appear significant in a univariable model, but its effect can vanish once relevant covariates are included
+
+This is very common, especially in observational studies, with small datasets and highly correlated predictors.
+
+:::
+
+---
+
+## 1 Univariable Linear Models {.smaller}
+
+#### Example: ΔNCPV, ApoB and Age 
+
+They modeled:
+
+$$
+\Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
+$$
+
+::: {.fragment}
+
+But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** and partly reflects the effect of age.
+
+
+A more appropriate model would be:
+
+$$
+\Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
+$$
+
+:::
+
+::: {.fragment}
+
+This separates the contribution of ApoB from that of age.
+
+:::
+::: {.fragment}
+
+<br>
+Univariable linear models make omitted-variable bias and likely confounding almost certain, especially in small non-randomized human data. This undermines any claim of association or non-association.
+
+:::
+
+
+---
+
+
+## 2 Univariable Linear Models {.smaller}
+
+But wait:
+<div style="font-size: 75%; margin-top: 1em;">
+
+> "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
+
+::: {.fragment}
+
+Additionally, Table 3 includes one multivariable regression on the primary outcome $\Delta \text{NCPV}$:
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85; padding-left: 1.5em;">
+  <li>$\Delta \text{NCPV} = \alpha + \beta_1 \, \text{CAC}_{\text{bl}} + \beta_2 \, \Delta \text{ApoB} + \beta_3 \, (\text{CAC}_{\text{bl}} \times \Delta \text{ApoB}) + \varepsilon$</li>
+  <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
+</ul>
+
+But the paper provides absolutely no explanation or rationale for this model. 
+
+:::
+
+</div>
+
+<br>
+<div style="font-size: 85%; margin-top: 1em;">
+
+::: {.fragment}
+
+So they did use three **multivariable models**.
+One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
+
+:::
+
+::: {.fragment}
+
+They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
+
+:::
+
+::: {.fragment}
+
+<br>
+This selective use raises questions.
+
+
+:::
+
+</div>
+
+---
+
+## 1 Univariable Linear Models {.smaller}
+
+> "Neither change in ApoB...baseline ApoB, nor total LDL-C exposure... were associated with the change in noncalcified plaque volume (NCPV) or TPS. All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the change in NCPV."
+
+::: {.fragment}
+
+<br>
+Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
+:::
+::: {.fragment}
+
+<br>
+At best, this reflects naïve reporting. At worst, it's actively misleading.
+:::
 
 
 # ΔNCPV as Outcome Variable
 **Plaque begets plaque**: biology or mathematical artifact?
 
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
 
 > "All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the **change in NCPV**."
@@ -84,6 +225,9 @@ They regressed $\Delta \text{NCPV}$ directly on its baseline value $\text{NCPV}_
 $$
 \Delta \text{NCPV} = \alpha + \beta \, \text{NCPV}_0 + \varepsilon
 $$
+
+:::
+::: {.fragment}
 
 But this introduces **mathematical coupling**, because $\text{NCPV}_0$ appears on both sides of the equation:
 
@@ -113,7 +257,7 @@ $$
 Regression model: $\text{NCPV}_{1} - \text{NCPV}_0 = \alpha + \beta \, \text{NCPV}_0 + \varepsilon$
 
 <br>
-The regression coefficient (slope): $\beta = \frac{\operatorname{Cov}((\text{NCPV}_1 - \text{NCPV}_0),\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)} = \frac{\operatorname{Cov}(\Delta \text{NCPV},\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)}$  
+The regression coefficient (slope): $\beta  = \frac{\operatorname{Cov}(\Delta \text{NCPV},\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)} = \frac{\operatorname{Cov}((\text{NCPV}_1 - \text{NCPV}_0),\ \text{NCPV}_0)}{\operatorname{Var}(\text{NCPV}_0)}$
 
 <br>
 This simplifies to: $\beta = \frac{\rho\, \sigma_1 - \sigma_0}{\sigma_0}$  
@@ -141,9 +285,9 @@ It is not a clean estimate of baseline influence.
 
 ---
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
-<div style="font-size: 90%; ">
+<div style="font-size: 85%; ">
 
 From Oldham* (1962): $\beta > 0 \quad\text{if}\quad \rho > \frac{\sigma_0}{\sigma_1}$
 
@@ -154,7 +298,7 @@ The slope depends on:
 
 ::: {.fragment}
 
-So a positive or negative slope arises **purely from the math**.
+A negative slope can arise entirely from mathematical coupling, while a positive slope in this model always includes some mathematical artifact but may also reflect a genuine biological association.
 
 In this study:
 
@@ -175,13 +319,12 @@ The slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigm
 
 ::: {.fragment}
 
-<br>
 <small>\*Source: [Oldham, 1962](https://www.sciencedirect.com/science/article/abs/pii/0021968162901169), *J. Chronic Dis.*</small>
 :::
 
 ---
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
 ```r
 n <- 100 # Set the number of values to generate
@@ -279,7 +422,7 @@ ggplotly(p, height = 350, width = 500) %>%
 
 ---
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
 
 An alternative is to model NCPV at follow-up ($\text{NCPV}_1$) directly while adjusting for baseline NCPV. This example uses ApoB as the independent variable:
@@ -308,7 +451,7 @@ but the with the number of subjects this must be done carefully.
 
 ---
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
 <div style="font-size: 90%; line-height: 0.8;">
 You cannot determine whether a positive or negative slope from ΔNCPV ∼ NCPV₀ reflects biology or math, because the math builds the relationship.
@@ -350,145 +493,6 @@ To isolate biological effects, you must model follow-up directly with baseline a
 
 </div>
 
-:::
-
-# Univariable Linear Models
-At best: exploratory. 
-
-At worst: misleading.
-
-## 2 Univariable Linear Models {.smaller}
-
-> "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
-
-::: {.fragment}
-
-Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
-each was tested separately in single-predictor regressions.
-
-:::
-
-::: {.fragment}
-
-This modeling choice introduces **omitted-variable bias**:  
-
-"...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
-
-:::
-
-::: {.fragment}
-
-<br>
-A predictor may appear significant in a univariable model, but its effect can vanish once relevant covariates are included
-
-This is very common, especially in observational studies, with small datasets and highly correlated predictors.
-
-:::
-
----
-
-## 2 Univariable Linear Models {.smaller}
-
-#### Example: ΔNCPV, ApoB and Age 
-
-They modeled:
-
-$$
-\Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
-$$
-
-::: {.fragment}
-
-But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** and partly reflects the effect of age.
-
-
-A more appropriate model would be:
-
-$$
-\Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
-$$
-
-:::
-
-::: {.fragment}
-
-This separates the contribution of ApoB from that of age.
-
-:::
-::: {.fragment}
-
-<br>
-Univariable linear models make omitted-variable bias and likely confounding almost certain, especially in small non-randomized human data. This undermines any claim of association or non-association.
-
-:::
-
-
----
-
-
-## 2 Univariable Linear Models {.smaller}
-
-But wait:
-<div style="font-size: 75%; margin-top: 1em;">
-
-> "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
-
-::: {.fragment}
-
-Additionally, Table 3 includes one multivariable regression on the primary outcome $\Delta \text{NCPV}$:
-
-<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85; padding-left: 1.5em;">
-  <li>$\Delta \text{NCPV} = \alpha + \beta_1 \, \text{CAC}_{\text{bl}} + \beta_2 \, \Delta \text{ApoB} + \beta_3 \, (\text{CAC}_{\text{bl}} \times \Delta \text{ApoB}) + \varepsilon$</li>
-  <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
-</ul>
-
-But the paper provides absolutely no explanation or rationale for this model. 
-
-:::
-
-</div>
-
-<br>
-<div style="font-size: 85%; margin-top: 1em;">
-
-::: {.fragment}
-
-So they did use three **multivariable models**.
-One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
-
-:::
-
-::: {.fragment}
-
-They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
-
-:::
-
-::: {.fragment}
-
-<br>
-This selective use raises questions.
-
-
-:::
-
-</div>
-
----
-
-## 2 Univariable Linear Models {.smaller}
-
-> "Neither change in ApoB...baseline ApoB, nor total LDL-C exposure... were associated with the change in noncalcified plaque volume (NCPV) or TPS. All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the change in NCPV."
-
-::: {.fragment}
-
-<br>
-Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
-:::
-::: {.fragment}
-
-<br>
-At best, this reflects naïve reporting. At worst, it's actively misleading.
 :::
 
 # Bayesian Modeling 
@@ -811,15 +815,16 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 ::: {.fragment}
 
-1. **ΔNCPV as outcome**  
-   Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
-   Mathematical coupling → regression slope reflects **algebra, not just biology**
-:::
-::: {.fragment}
-
-2. **Univariable regressions**  
+1. **Univariable regressions**  
    Each predictor tested separately (ApoB, LDL-C, age…)  
    No confounder adjustment → **biased, unreliable, low credibility estimates**
+
+:::
+::: {.fragment}
+2. **ΔNCPV as outcome**  
+   Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
+   Mathematical coupling → regression slope reflects **algebra, not just biology**
+
 :::
 ::: {.fragment}
 
@@ -1237,7 +1242,7 @@ Just run and report the multivariable, adjusted models.
 
 ::: {.fragment}
 
-That journal citation used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. 
+That journal citation [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology) used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. 
 
 This approach was chosen after detecting heteroskedasticity in a preliminary multivariable linear regression. Both models were multivariable (adjusted), not univariable.
 
