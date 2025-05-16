@@ -445,7 +445,7 @@ ggplotly(p, height = 350, width = 500) %>%
 An alternative is to model NCPV at follow-up ($\text{NCPV}_1$) directly while adjusting for baseline NCPV. This example uses ApoB as the independent variable:
 
 $$
-\text{NCPV}_1 = \alpha + \gamma\,\text{NCPV}_0 + \beta ApoB + \varepsilon
+\text{NCPV}_1 = \alpha + \beta_1 \text{NCPV}_0 + \beta_2 \text{ApoB} + \varepsilon
 $$
 
 This approach avoids mathematical coupling, reduces residual variance, and allows the coefficient on $ApoB$ to reflect biological association — not algebraic structure.
@@ -455,14 +455,9 @@ This approach avoids mathematical coupling, reduces residual variance, and allow
 
 ::: {.fragment}
 
+This is an example of an ANCOVA-style model, where the follow-up outcome is regressed on both baseline and the predictor of interest. 
 
-You could test whether baseline NCPV predicts follow-up using a mixed-effects model with a Time × Baseline interaction:
-
-> $$
-> \text{NCPV}_{ij} = \alpha + \gamma\,\text{Time}_{ij} + \beta\,\text{NCPV}_{0j} + \delta\,(\text{Time}_{ij} \cdot \text{NCPV}_{0j}) + b_j + \varepsilon_{ij}
-> $$
-
-but the with the number of subjects this must be done carefully.
+ANCOVA is preferred over change score analysis because it adjusts for baseline without inducing mathematical coupling and typically improves statistical power and interpretability.
 
 :::
 
@@ -472,9 +467,8 @@ but the with the number of subjects this must be done carefully.
 
 <div style="font-size: 90%; line-height: 0.8;">
 You cannot determine whether a positive or negative slope from ΔNCPV ∼ NCPV₀ reflects biology or math, because the math builds the relationship.
-To isolate biological effects, you must model follow-up directly with baseline as a covariate — not as part of the outcome.
+To isolate biological effects, you must model follow-up directly with baseline as a covariate, not as part of the outcome. This also avoids spurious associations when predictors are correlated with baseline, even if they aren’t the same variable.
 
-<br>
 
 ::: {.fragment}
 
@@ -482,6 +476,7 @@ To isolate biological effects, you must model follow-up directly with baseline a
 
 ["Mathematical coupling can lead to an artificially inflated association between initial value and change score when correlation or regression is used."](https://www.sciencedirect.com/science/article/abs/pii/S0895435609003497#:~:text=Mathematical%20coupling%20occurs%20%E2%80%9Cwhen%20one%20variable%20directly,posttreatment%20score%2C%20they%20contain%20the%20pretreatment%20score.) - Brown, 2009
 
+["Many authors and pharmaceutical clinical trialists make the mistake of analyzing change from baseline instead of making the raw follow-up measurements the primary outcomes, covariate-adjusted for baseline."](https://www.fharrell.com/post/errmed/#change-from-baseline) - Frank E Harrell Jr, PhD, Professor of Biostatistics
 :::
 
 </div>
@@ -491,21 +486,19 @@ To isolate biological effects, you must model follow-up directly with baseline a
 ::: {.fragment}
 
 <br>
-<br>
 **Plaque begets plaque**: biology or a mathematical artifact?
 
 :::
 
-<br>
 
 ::: {.fragment}
 
 <div style="font-size: 50%; margin-top: 1em;">
 
 **See also:**  
-[Analysis of 'change scores'](https://clok.uclan.ac.uk/38260/1/38260%20dyab050.pdf)  
-[Assessing the Relationship between the Baseline Value of a Continuous Variable and Subsequent Change Over Time](https://pmc.ncbi.nlm.nih.gov/articles/PMC3854983/)  
-[Mathematic coupling of data: a common source of error](https://pmc.ncbi.nlm.nih.gov/articles/PMC1345065/)
+[Analysis of 'change scores'](https://clok.uclan.ac.uk/38260/1/38260%20dyab050.pdf); 
+[Assessing the Relationship between the Baseline Value of a Continuous Variable and Subsequent Change Over Time](https://pmc.ncbi.nlm.nih.gov/articles/PMC3854983/); 
+[Mathematic coupling of data: a common source of error](https://pmc.ncbi.nlm.nih.gov/articles/PMC1345065/); 
 [Revisiting the relation between change and initial value: a review and evaluation](https://onlinelibrary.wiley.com/doi/10.1002/sim.2538)
 
 </div>
