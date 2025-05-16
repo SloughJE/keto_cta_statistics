@@ -136,7 +136,7 @@ Univariable linear models make omitted-variable bias and likely confounding almo
 ---
 
 
-## 2 Univariable Linear Models {.smaller}
+## 1 Univariable Linear Models {.smaller}
 
 But wait:
 <div style="font-size: 75%; margin-top: 1em;">
@@ -239,7 +239,7 @@ $$
 
 ---
 
-## 1 ΔNCPV as Outcome Variable {.smaller}
+## 2 ΔNCPV as Outcome Variable {.smaller}
 
 <div style="font-size: 75%; line-height: 1.3;">
 
