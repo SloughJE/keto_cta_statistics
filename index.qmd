@@ -346,7 +346,7 @@ A positive slope in a mathematically coupled regression signals only that baseli
 ```r
 n <- 100 # Set the number of values to generate
 baseline <- rnorm(n, mean = 100, sd = 10) # Create 100 random numbers centered around 100
-follow_up <- rnorm(n, mean = 120, sd = 10) # Create another 100 random numbers, centered around 110  
+follow_up <- rnorm(n, mean = 120, sd = 10) # Create another 100 random numbers, centered around 120  
 delta <- follow_up - baseline # Subtract the first set from the second to get the difference
 
 ```
