@@ -659,11 +659,19 @@ A moderately informative prior would typically correspond to "medium" (≈ 0.354
 
 ## 4 Bayesian Prior Choice {.smaller}
 
-The authors' prior choice isn't wrong, but their description of it is misleading.
+<div style="font-size: 90%;">
 
-Labeling an **r = 0.8** prior as “moderately informative” or “conservative” downplays the fact that it assumes **large effects**, making small observed effects look unlikely under H₁ and inflating support for H₀.
 
-<br>
+'We believe ApoB has a strong effect on plaque progression within one year. If we don’t observe strong effects in that time frame, we'll treat that as evidence that ApoB likely has no effect.'
+
+::: {.fragment}
+
+The authors' choice of `rscale` isn't wrong, but their description of it is misleading.
+
+Labeling an `rscale = 0.8` prior as "moderately informative" or "conservative" downplays the fact that it assumes **large effects**, making small observed effects look unlikely under H₁ and inflating support for H₀.
+
+:::
+
 
 ::: {.fragment}
 
@@ -678,7 +686,7 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 ::: {.fragment}
 
 
-<div style="font-size: 80%;">
+<div style="font-size: 85%;">
 
 ["it is always important to conduct a prior **sensitivity analysis** to fully understand the influence that the prior settings have on posterior estimates"](https://www.nature.com/articles/s43586-020-00001-2)
 
@@ -686,6 +694,8 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 
 </div>
 :::
+
+</div>
 ---
 
 ## 4 Bayesian Prior Choice {.smaller}
@@ -828,46 +838,46 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 ## Summary {.smaller}
 
-<div style="font-size: 82%; line-height: 1.2;">
+<div style="font-size: 80%; line-height: 1.2;">
 
 ::: {.fragment}
 
-1. **Univariable regressions**  
+1. **Univariable Linear Models**  
    Each predictor tested separately (ApoB, LDL-C, age…)  
    No confounder adjustment → **biased, unreliable, low credibility estimates**
 
 :::
 ::: {.fragment}
-2. **ΔNCPV as outcome**  
+2. **ΔNCPV as Outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
-   Mathematical coupling → regression slope reflects **algebra, not just biology**
+   Mathematical coupling → is regression slope a **mathematical artifact or biology**
 
 :::
 ::: {.fragment}
 
-3. **Bayesian inference**  
+3. **Bayesian Inference**  
    Bayes inference used to support "no ApoB effect" & "plaque begets plaque"<br> 
    Unadjusted, observational data → **misleading, unusual use of Bayesian inference**
 :::
 ::: {.fragment}
 
-4. **Prior choice (rscale = 0.8)**  
+4. **Bayesian Prior Choice (rscale = 0.8)**  
    Prior assumes large effects<br>
    No sensitivity analysis → results likely **prior-driven**
 :::
 ::: {.fragment}
 
-5. **Bayes factor interpretation**  
-   Claimed null is "6–10× more likely"<br>
+5. **Bayes Factor Interpretation**  
+   Claimed ApoB no association is "6–10× more likely...true"<br>
    Bayes factor misstated as posterior probability → compares model fit, **not truth**
 :::
 ::: {.fragment}
 
 6. **Headline claim**  
    "Plaque Begets Plaque, ApoB Does Not"<br>
-   Overstates evidence → **statistically inadequate, selectively modeled, fragile analysis**
-:::
+   Overstates evidence → **methodologically weak, statistically inadequate, selectively modeled and reported**
 
+:::
 </div>
 
 
@@ -894,7 +904,7 @@ Such as:
 
 ::: {.fragment}
 
-Perhaps the authors viewed this as exploratory, where correction is often skipped —  
+Perhaps the authors viewed this analysis as exploratory, where correction is often skipped —  
 **but then why title the paper "Plaque Begets Plaque, ApoB Does Not"?**
 
 :::
@@ -927,7 +937,7 @@ These issues are **clear in TPS**, and may affect NCPV, but diagnostics are not 
 *OLS assumes homoscedastic, normal residuals*  
 *performance::check_model() was run — but no output provided*
 
-They could have considered methods to address this such as: **Tobit regression**, **log-transform**, or **robust SEs**
+They could have considered methods to address this such as: **Tobit regression**, **log(+1) transform**, or **robust regression**
 
 :::
 
@@ -959,8 +969,7 @@ The authors conducted an apparent **post hoc** "sensitivity analyses" in two sub
 ::: {.fragment}
 
 <br>
-The subgroups may partially overlap — the paper doesn’t say.  
-Without clarity, it's unclear if results reflect **replication** or **redundancy**. 
+Without knowing if the subgroups are distinct, it's hard to tell whether these findings confirm one another or simply re-analyze overlapping data — replication vs. redundancy.
 
 :::
 
@@ -987,12 +996,12 @@ Exact same modeling strategy:
 <ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 80%; padding-left: 1.5em;">
   <li>Univariable linear regressions</li>
   <li>No covariate adjustment or interaction testing on main outcomes reported (except one model)</li>
-  <li>No rationale for subgroup thresholds</li>
+  <li>Rationale for subgroup thresholds not explained.</li>
 </ul>
 
 ::: {.fragment}
 
-**Results**: "similar results to those just reported". But these are smaller samples with more noise.
+**Results**: "Sensitivity analyses... showed similar results to those just reported".
 
 :::
 
@@ -1022,9 +1031,10 @@ Compared to the full sample, the high adherence group offers only anecdotal evid
 
 </div>
 
+<br>
 
 ::: {.fragment}
-Labeling this "sensitivity analysis" suggests robustness, but nothing was done to test robustness statistically.
+The authors state that sensitivity analyses showed “similar results,” but provide no statistical comparisons, and no clarity on overlap between subgroups. 
 :::
 
 ---
@@ -1188,8 +1198,8 @@ From the response:
 Objective, quantitative statistical tests also exist for assessing model assumptions:
 
 <ul style="margin-top: 0; margin-bottom: 0; font-size: 85%; line-height: 1; padding-left: 1.5em;">
-  <li>Normality: Shapiro-Wilk, Kolmogorov–Smirnov, Q-Q plots (visual / quantitative)</li>
-  <li>Homoscedasticity: Breusch–Pagan, White test</li>
+  <li>Normality: Shapiro-Wilk test, Kolmogorov–Smirnov test, Q-Q plots (visual / quantitative)</li>
+  <li>Homoscedasticity: Breusch–Pagan test, White test</li>
   <li>Influence / leverage: Cook's distance, leverage plots (visual based on quantitative values)</li>
 </ul>
 
@@ -1235,7 +1245,7 @@ Just run and report the multivariable, adjusted models.
 
 <br>
 
->"Moreover, our results are compatible with a causal role of ApoB in atherosclerosis, as we have openly acknowledged and supported in previous publications."
+>"Moreover, our results are compatible with a **causal role of ApoB** in atherosclerosis, as we have openly acknowledged and supported in previous publications."
 
 :::
 ::: {.fragment}
@@ -1261,7 +1271,7 @@ Just run and report the multivariable, adjusted models.
 
 That journal citation [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology) used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. 
 
-This approach was chosen after detecting heteroskedasticity in a preliminary multivariable linear regression. Both models were multivariable (adjusted), not univariable.
+This approach was chosen after detecting heteroskedasticity (non-constant variance in residuals) in a preliminary multivariable linear regression. Both models were multivariable (adjusted), not univariable.
 
 :::
 
