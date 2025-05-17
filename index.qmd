@@ -927,7 +927,7 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 
 ## 4 Bayesian Prior Choice {.smaller}
 
-#### Prior Scale Sensitivity Analysis on simulated ΔNCPV ~ ApoB Model
+#### Simulated Prior Scale Sensitivity Analysis on ΔNCPV ~ ApoB Model
 
 <br>
 
