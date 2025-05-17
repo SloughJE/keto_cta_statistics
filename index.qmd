@@ -62,8 +62,6 @@ John Slough
 </div>
 
 
-
-
 # ΔNCPV as Outcome Variable
 **Plaque begets plaque**: a mathematical artifact and clinically uninformative?
 
@@ -1043,19 +1041,19 @@ Bayes factors update prior odds into posterior odds. Claiming the null is 6–10
 
 ::: 
 
+# Summary
+
 ---
 
-## Summary {.smaller}
+## {.smaller}
 
-<div style="font-size: 77%; line-height: 1.2;">
+<div style="font-size: 85%; line-height: 1.2;">
 
-::: {.fragment}
 
 1. **ΔNCPV as Outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline metrics <br>
    Widely discouraged in statistical literature → Mathematical coupling, inflated error, and clinically ambiguous interpretation
 
-:::
 ::: {.fragment}
 
 2. **Univariable Linear Models**  
@@ -1385,6 +1383,9 @@ This matters because:
 
 </div>
 
+
+# Letters to the Editor
+
 ---
 
 ## Notes on Letters to the Editor {.smaller}
@@ -1439,28 +1440,31 @@ No output, diagnostics, or model fit provided. We are asked to trust their asser
 
 ## Notes on Letters to the Editor {.smaller}
 
-<div style="font-size: 90%">
+<div style="font-size: 85%">
 
->"We agree that being able to identify patients with rapid plaque progression, and gaining better understanding of the mechanisms that mediate its pace (i.e. insulin resistance, inflammation, different dietary composition elements, etc.) is paramount. We plan to address these risk factors in future reports"
+> "Additionally, we’ll highlight that the mean change in NCPV was 31.5 mm3 with a standard deviation also of 31.5 mm3. This highlights the impressive degree of heterogeneity in NCPV change."
 
 ::: {.fragment}
 
-Are they admitting their analysis lacks adjustment for likely confounders, despite drawing strong conclusions from univariable regressions?
+The SD of ΔNCPV (31.5 mm³), equal to its mean, was omitted from the original paper and reported in response to critique.
 
-Just run and report the multivariable, adjusted models. 
+That high level of variation ("heterogeneity") weakens power and makes all regression results less reliable — not just the null finding on ApoB.
+
+:::
+::: {.fragment}
+
+>"We completely agree our exploratory results (especially those suggesting a null association between plaque progression and ApoB) should be interpreted with caution"
 
 :::
 
 ::: {.fragment}
-
-<br>
 
 >"Moreover, our results are compatible with a **causal role of ApoB** in atherosclerosis, as we have openly acknowledged and supported in previous publications."
 
 :::
+
 ::: {.fragment}
 
-<br>
 
 **"Plaque Begets Plaque, ApoB Does Not"**
 
@@ -1470,20 +1474,28 @@ Just run and report the multivariable, adjusted models.
 
 ---
 
+
 ## Notes on Letters to the Editor {.smaller}
 
 <div style="font-size: 85%">
 
-
 >"Along the same lines, we would like to clarify that our title was not meant to be a statement about causality. “Plaque begets plaque” (which, of course, mirrors the proverb “Money begets money”) is frequently used to highlight the strong and clinically relevant association of baseline plaque values with plaque progression rate [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology). 
+
+</div>
+
+
+
+<div style="font-size: 90%">
 
 ::: {.fragment}
 
-That journal citation [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology) used a random-effects repeated-measures model, a type of longitudinal multivariable regression that accounts for the non-independence of repeated observations within individuals, and controlled for baseline calcium score and traditional risk factors. 
+In that citation [[7]](https://pubs.rsna.org/doi/abs/10.1148/radiol.2241011191?journalCode=radiology), Yoon et al. did perform t-tests on change scores, but their main conclusions relied on a random-effects repeated-measures **multivariable** regression model of follow-up CAC, **adjusted for baseline plaque** and clinical risk factors.
 
-This approach was chosen after detecting heteroskedasticity (non-constant variance in residuals) in a preliminary multivariable linear regression. Both models were multivariable (adjusted), not univariable.
+The paper did not report any univariable linear regression models.
+
 
 :::
+
 
 <br>
 
@@ -1492,6 +1504,7 @@ This approach was chosen after detecting heteroskedasticity (non-constant varian
 >"In retrospect, we might have chosen “Longitudinal Data from the KETO-CTA Study” as alternative phrasing to avoid **misinterpretations.**"
 
 :::
+
 
 </div>
 
