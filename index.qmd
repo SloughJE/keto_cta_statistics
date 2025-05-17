@@ -184,8 +184,12 @@ knitr::kable(df, col.names = c(
 
 Change scores **combine error** from both baseline and follow-up, inflating model residual variance and weakening effect estimate.
 
+::: {.fragment}
+
 - Simulated data (N = 100) approximates ApoB and $\text{NCPV}_0$ based on summary stats from study  
 - We compare model: **ΔNCPV ~ ApoB** with **NCPV₁ ~ NCPV₀ + ApoB**
+
+:::
 
 </div>
 
