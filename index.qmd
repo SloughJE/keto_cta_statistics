@@ -41,7 +41,7 @@ John Slough
 ::: {.fragment}
   
 - **Findings**: No link between ApoB/LDL-C (baseline/change) and plaque progression  
-- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression (ΔNCPV) 
+- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression (**ΔNCPV**) 
 - **Stats**: Bayesian analysis favored no ApoB–plaque link (6–10× vs alt)  
 <br>
 - **Conclusion**: *Plaque begets plaque; ApoB does not*  
@@ -52,8 +52,8 @@ John Slough
 
 <div style="font-size: 160%; line-height: 1.3;">
 
-1. Univariable Linear Models  
-2. ΔNCPV as Outcome Variable  
+1. ΔNCPV as Outcome Variable 
+2. Univariable Linear Models  
 3. Bayesian Inference  
 4. Bayesian Prior Choice  
 5. Bayes Factor Interpretation
@@ -62,157 +62,31 @@ John Slough
 </div>
 
 
-# Univariable Linear Models
-At best: exploratory. 
-
-At worst: misleading.
-
-## 1 Univariable Linear Models {.smaller}
-
-> "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
-
-::: {.fragment}
-
-Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
-each was tested separately in single-predictor regressions.
-
-:::
-
-::: {.fragment}
-
-This modeling choice introduces **omitted-variable bias**:  
-
-"...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
-
-:::
-
-::: {.fragment}
-
-<br>
-A predictor may appear significant in a univariable model, but its effect can vanish once relevant covariates are included
-
-This is very common, especially in observational studies, with small datasets and highly correlated predictors.
-
-:::
-
----
-
-## 1 Univariable Linear Models {.smaller}
-
-#### Example: ΔNCPV, ApoB and Age 
-
-They modeled:
-
-$$
-\Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
-$$
-
-::: {.fragment}
-
-But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** and partly reflects the effect of age.
-
-
-A more appropriate model would be:
-
-$$
-\Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
-$$
-
-:::
-
-::: {.fragment}
-
-This separates the contribution of ApoB from that of age.
-
-:::
-::: {.fragment}
-
-<br>
-Univariable linear models make omitted-variable bias and likely confounding almost certain, especially in small non-randomized human data. This undermines any claim of association or non-association.
-
-:::
-
-
----
-
-
-## 1 Univariable Linear Models {.smaller}
-
-But wait:
-<div style="font-size: 75%; margin-top: 1em;">
-
-> "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
-
-::: {.fragment}
-
-Additionally, Table 3 includes one multivariable regression on the primary outcome $\Delta \text{NCPV}$:
-
-<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85; padding-left: 1.5em;">
-  <li>$\Delta \text{NCPV} = \alpha + \beta_1 \, \text{CAC}_{\text{bl}} + \beta_2 \, \Delta \text{ApoB} + \beta_3 \, (\text{CAC}_{\text{bl}} \times \Delta \text{ApoB}) + \varepsilon$</li>
-  <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
-</ul>
-
-But the paper provides absolutely no explanation or rationale for this model. 
-
-:::
-
-</div>
-
-<br>
-<div style="font-size: 85%; margin-top: 1em;">
-
-::: {.fragment}
-
-So they did use three **multivariable models**.
-One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
-
-:::
-
-::: {.fragment}
-
-They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
-
-:::
-
-::: {.fragment}
-
-<br>
-This selective use raises questions.
-
-
-:::
-
-</div>
-
----
-
-## 1 Univariable Linear Models {.smaller}
-
-> "Neither change in ApoB...baseline ApoB, nor total LDL-C exposure... were associated with the change in noncalcified plaque volume (NCPV) or TPS. All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the change in NCPV."
-
-::: {.fragment}
-
-<br>
-Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
-:::
-::: {.fragment}
-
-<br>
-At best, this reflects naïve reporting. At worst, it's actively misleading.
-:::
 
 
 # ΔNCPV as Outcome Variable
-**Plaque begets plaque**: biology or mathematical artifact?
+**Plaque begets plaque**: a mathematical artifact and clinically uninformative?
 
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+## 1 ΔNCPV as Outcome Variable {.smaller}
 
+<div style="font-size: 85%;">
 
 > "All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the **change in NCPV**."
 
+<div style="font-size: 90%;">
+
 ::: {.fragment}
 
+["Many authors and pharmaceutical clinical trialists make the mistake of analyzing change from baseline instead of making the raw follow-up measurements the primary outcomes, covariate-adjusted for baseline."](https://www.fharrell.com/post/errmed/#change-from-baseline) - Frank E Harrell Jr, PhD, Professor of Biostatistics, Vanderbilt University School of Medicine 
+
+:::
+
+</div>
+
+::: {.fragment}
+
+<br>
 
 Change in noncalcified plaque volume $\Delta \text{NCPV}$ was the outcome:
 
@@ -220,13 +94,218 @@ $$
 \Delta \text{NCPV} = \text{NCPV}_{1} - \text{NCPV}_0
 $$
 
-They regressed $\Delta \text{NCPV}$ directly on its baseline value $\text{NCPV}_0$:  
+They regressed $\Delta \text{NCPV}$ directly on baseline values, for example:  
 
 $$
 \Delta \text{NCPV} = \alpha + \beta \, \text{NCPV}_0 + \varepsilon
 $$
 
 :::
+
+
+::: {.fragment}
+
+- Obscures clinically meaningful patterns  
+- Inflates error, reducing model precision  
+- Introduces Mathematical Coupling  
+
+:::
+
+</div>
+
+---
+
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
+Change scores (ΔNCPV) can **obscure clinically meaningful** patterns
+
+ΔNCPV is the same — but is that meaningful?
+
+<br>
+
+```{r}
+library(plotly)
+
+df <- data.frame(
+  Subject = c("A", "B", "C"),
+  ApoB_mg_dL = c(120, 185, 250),
+  Delta_NCPV_mm3 = c(20, 20, 20)
+)
+
+knitr::kable(df, col.names = c(
+  "Subject", "ApoB",  "ΔNCPV"
+))
+```
+
+
+---
+
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
+Change scores (ΔNCPV) can obscure **clinically meaningful** patterns
+
+ΔNCPV is the same — but is that meaningful?
+
+<br>
+
+```{r}
+df <- data.frame(
+  Subject = c("A", "B", "C"),
+  ApoB_mg_dL = c(120, 185, 250),
+  NCPV_0_mm3 = c(20, 76, 130),
+  NCPV_1_mm3 = c(40, 96, 150),
+  Delta_NCPV_mm3 = c(20, 20, 20)
+)
+
+knitr::kable(df, col.names = c(
+  "Subject", "ApoB", "NCPV₀", "NCPV₁", "ΔNCPV"
+))
+```
+
+
+::: {.fragment}
+
+<br>
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 1.2; padding-left: 1.5em; font-size: 90%;">
+  <li>All three subjects had the same plaque progression, but started and ended at very different levels.</li>
+  <li>ApoB increases across subjects — but ΔNCPV doesn’t reflect this.</li>
+  <li>If you model ΔNCPV ~ ApoB, the slope will be zero, even though ApoB clearly tracks with absolute plaque burden.</li>
+</ul>
+
+:::
+
+
+---
+
+
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
+<div style="font-size: 80%;">
+
+Change scores **combine error** from both baseline and follow-up, inflating model residual variance and weakening effect estimate.
+
+- Simulated data (N = 100) approximates ApoB and $\text{NCPV}_0$ based on summary stats from study  
+- We compare model: **ΔNCPV ~ ApoB** with **NCPV₁ ~ NCPV₀ + ApoB**
+
+</div>
+
+::: {.fragment}
+
+<div style="font-size: 75%;">
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+set.seed(42)
+
+n <- 100
+mean_apob <- 185; sd_apob <- 50.8
+mean_ncpv0 <- 75.9; sd_ncpv0 <- 88.3
+
+apob <- rnorm(n, mean_apob, sd_apob)
+ncpv_0 <- rnorm(n, mean_ncpv0, sd_ncpv0)
+
+ncpv_1 <- 0.125 * apob + 0.6 * ncpv_0 + rnorm(n, 0, 15)
+delta_ncpv <- ncpv_1 - ncpv_0
+
+model1 <- lm(delta_ncpv ~ apob)
+model2 <- lm(ncpv_1 ~ ncpv_0 + apob)
+
+# Extract key stats
+tbl <- data.frame(
+  Model = c("ΔNCPV ~ ApoB", "NCPV1 ~ NCPV0 + ApoB"),
+  `Residual SE` = c(round(summary(model1)$sigma, 2), round(summary(model2)$sigma, 2)),
+  `SE (ApoB)` = c(round(summary(model1)$coefficients["apob", "Std. Error"], 3),
+                  round(summary(model2)$coefficients["apob", "Std. Error"], 3)),
+  `p-value (ApoB)` = c(
+    signif(summary(model1)$coefficients["apob", "Pr(>|t|)"], 2),
+    signif(summary(model2)$coefficients["apob", "Pr(>|t|)"], 2)
+  ),
+  `R²` = c(round(summary(model1)$r.squared, 2), round(summary(model2)$r.squared, 2))
+)
+
+# Rename headers for clarity
+knitr::kable(tbl, col.names = c(
+  "Model", "Residual SE", "SE (ApoB)", "p-value (ApoB)", "R²"
+))
+
+```
+
+<br>
+
+</div>
+
+:::
+
+::: {.fragment}
+
+::: columns
+
+::: {.column width="50%"}
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 1.2; font-size: 80%;">
+  <li>Both models test whether ApoB is associated with plaque progression</li>
+  <li>Modeling follow-up plaque while adjusting for baseline gives a clearer answer</li>
+  <li>Change scores often reduce power and obscure relationships</li>
+</ul>
+
+:::
+
+::: {.column width="50%"}
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+library(ggplot2)
+library(dplyr)
+
+resid_df <- data.frame(
+  Residual = c(residuals(model1), residuals(model2)),
+  Model = factor(rep(c("Delta NCPV ~ ApoB", "NCPV1 ~ NCPV0 + ApoB"), each = n))
+)
+
+plt <- ggplot(resid_df, aes(x = Residual, color = Model, fill = Model)) +
+  geom_density(alpha = 0.3, adjust = 1.2) +
+  labs(
+    title = "Residual Distributions: ΔNCPV vs Baseline-Adjusted Model",
+    x = "Residual",
+    y = "Density"
+  ) +
+  scale_color_manual(values = c("#E69F00", "#56B4E9")) +
+  scale_fill_manual(values = c("#E69F00", "#56B4E9")) +
+  theme_minimal(base_size = 10) +
+  theme(
+    legend.title = element_blank()
+  )
+
+ggplotly(plt, width = 500, height = 300) %>%
+   layout(
+    legend = list(orientation = "h", x = 0.5, xanchor = "center", y = -0.2),
+    xaxis = list(title = list(text = "Residual", standoff = 5))  # Reduce distance from plot
+  ) %>%   config(displayModeBar = FALSE) 
+
+
+```
+
+:::
+
+:::
+
+:::
+
+---
+
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
+Mathematical Coupling
+
+
+They regressed $\Delta \text{NCPV}$ directly on its baseline value $\text{NCPV}_0$:  
+
+$$
+\Delta \text{NCPV} = \alpha + \beta \, \text{NCPV}_0 + \varepsilon
+$$
+
+
 ::: {.fragment}
 
 But this introduces **mathematical coupling**, because $\text{NCPV}_0$ appears on both sides of the equation:
@@ -237,24 +316,28 @@ $$
 
 :::
 
----
+<br>
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+::: {.fragment}
 
-<div style="font-size: 75%; line-height: 1.3;">
+<div style="font-size: 80%; line-height: 1.3;">
 
 ["Mathematical coupling occurs when one variable directly or indirectly contains the whole or part of another, and the two variables are then analysed using correlation or regression. As a result, the statistical procedure of testing the null hypothesis — that the coefficient of correlation or the slope of regression is zero — might no longer be appropriate."](https://pubmed.ncbi.nlm.nih.gov/16526009/) - Tu & Gilthorpe, 2007
 
 </div>
 
+:::
 
-<div style="font-size: 80%; line-height: 1.3;">
+---
 
-::: {.fragment}
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
+<div style="font-size: 85%; line-height: 1.3;">
+
 
 Regression model: $\text{NCPV}_{1} - \text{NCPV}_0 = \alpha + \beta \, \text{NCPV}_0 + \varepsilon$
 
-:::
+
 ::: {.fragment}
 
 <br>
@@ -280,7 +363,7 @@ where:
 
 ::: {.fragment}
 
-<div style="font-size: 80%; line-height: 1.3;">
+<div style="font-size: 90%; line-height: 1.3;">
 
 With baseline NCPV contributing to both predictor and outcome, the slope reflects a mix of true correlation ($\rho$), variability ratio ($\sigma_1/\sigma_0$), and structural bias from subtracting $NCPV_0$ from both sides.
 
@@ -293,7 +376,7 @@ It is not a clean estimate of baseline influence.
 
 ---
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+## 1 ΔNCPV as Outcome Variable {.smaller}
 
 <div style="font-size: 85%; ">
 
@@ -314,6 +397,9 @@ That inequality can be satisfied without any causal baseline effect, for example
 </div>
 
 :::
+
+<div style="font-size: 90%; ">
+
 ::: {.fragment}
 
 In this study:
@@ -324,24 +410,28 @@ In this study:
 
 ::: {.fragment}
 
-<div style="font-size: 90%; ">
 
-A positive slope in a mathematically coupled regression signals only that baseline–follow-up correlation and/or variance growth were strong enough to offset the unavoidable −1 artifact. Whether it reflects true biology, and whether it exaggerates or understates that biology, cannot be determined from β alone.
+A positive slope in a mathematically coupled regression signals only that baseline–follow-up correlation and/or variance growth were strong enough to offset the unavoidable −1 artifact. Whether it reflects true biology, and whether it exaggerates or understates that biology, cannot be determined from $\beta$ alone.
+
+
+:::
 
 </div>
 
-:::
 
 </div>
 
 ::: {.fragment}
 
 <small>\*Source: [Oldham, 1962](https://www.sciencedirect.com/science/article/abs/pii/0021968162901169), *J. Chronic Dis.*</small>
+
 :::
+
 
 ---
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+## 1 ΔNCPV as Outcome Variable {.smaller}
+
 
 ```r
 n <- 100 # Set the number of values to generate
@@ -391,7 +481,7 @@ p_raw = ggplot(df, aes(x = baseline, y = follow_up)) +
     title = "Baseline vs Follow-up",
     subtitle = "Two independent variables — no true effect",
     x = "Baseline",
-    y = "Follow up"
+    y = "Follow-up"
   ) +
   theme_minimal()
 
@@ -419,10 +509,10 @@ p = ggplot(df, aes(x = baseline, y = delta)) +
   annotate("text", x = min(df$baseline) + 30, y = max(df$delta),
            label = label_change, color = "darkred", hjust = 0, size = 4) +
   labs(
-    title = "Baseline vs Change (Follow up - Baseline)",
+    title = "Baseline vs Change (Follow-up - Baseline)",
     subtitle = "Mathematical Coupling Creates a Spurious Slope",
     x = "Baseline",
-    y = "Follow up - Baseline (Δ)"
+    y = "Follow-up - Baseline (Δ)"
   ) +
   theme_minimal()
 
@@ -437,9 +527,12 @@ ggplotly(p, height = 350, width = 500) %>%
 
 :::
 
+
+
 ---
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+
+## 1 ΔNCPV as Outcome Variable {.smaller}
 
 
 An alternative is to model NCPV at follow-up ($\text{NCPV}_1$) directly while adjusting for baseline NCPV. This example uses ApoB as the independent variable:
@@ -463,12 +556,10 @@ ANCOVA is preferred over change score analysis because it adjusts for baseline w
 
 ---
 
-## 2 ΔNCPV as Outcome Variable {.smaller}
+## 1 ΔNCPV as Outcome Variable {.smaller}
 
 <div style="font-size: 90%; line-height: 0.8;">
-You cannot determine whether a positive or negative slope from ΔNCPV ∼ NCPV₀ reflects biology or math, because the math builds the relationship.
-To isolate biological effects, you must model follow-up directly with baseline as a covariate, not as part of the outcome. This also avoids spurious associations when predictors are correlated with baseline, even if they aren’t the same variable.
-
+A slope from ΔNCPV ∼ NCPV₀ may reflect math, not biology, because the outcome is built from the predictor. Using change scores also compounds error and weakens model precision. To isolate real effects and preserve clinical meaning, we should model follow-up directly while adjusting for baseline.
 
 ::: {.fragment}
 
@@ -486,7 +577,7 @@ To isolate biological effects, you must model follow-up directly with baseline a
 ::: {.fragment}
 
 <br>
-**Plaque begets plaque**: biology or a mathematical artifact?
+**Plaque begets plaque**: a mathematical artifact and clinically uninformative?
 
 :::
 
@@ -503,6 +594,145 @@ To isolate biological effects, you must model follow-up directly with baseline a
 
 </div>
 
+:::
+
+# Univariable Linear Models
+At best: exploratory. 
+
+At worst: misleading.
+
+## 2 Univariable Linear Models {.smaller}
+
+> "Linear models on the primary (NCPV) and secondary outcomes were **univariable**"
+
+::: {.fragment}
+
+Despite having multiple predictors available (age, sex, ApoB, BMI, Triglycerides, Systolic blood pressure, CAC, NCPV₀, LDL-C exposure),  
+each was tested separately in single-predictor regressions.
+
+:::
+
+::: {.fragment}
+
+This modeling choice introduces **omitted-variable bias**:  
+
+"...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
+
+:::
+
+::: {.fragment}
+
+<br>
+A predictor may appear significant in a univariable model, but its effect can vanish once relevant covariates are included
+
+This is very common, especially in observational studies, with small datasets and highly correlated predictors.
+
+:::
+
+---
+
+## 2 Univariable Linear Models {.smaller}
+
+#### Example: ΔNCPV, ApoB and Age 
+
+They modeled:
+
+$$
+\Delta \text{NCPV} = \alpha + \beta \text{ApoB} + \varepsilon
+$$
+
+::: {.fragment}
+
+But if **age** also predicts ΔNCPV and correlates with ApoB, then $\beta$ is **biased** and partly reflects the effect of age.
+
+
+A more appropriate model would be:
+
+$$
+\Delta \text{NCPV} = \alpha + \beta_1 \text{ApoB} + \beta_2 \text{Age} + \varepsilon
+$$
+
+:::
+
+::: {.fragment}
+
+This separates the contribution of ApoB from that of age.
+
+:::
+::: {.fragment}
+
+<br>
+Univariable linear models make omitted-variable bias and likely confounding almost certain, especially in small non-randomized human data. This undermines any claim of association or non-association.
+
+:::
+
+
+---
+
+
+## 2 Univariable Linear Models {.smaller}
+
+But wait:
+<div style="font-size: 75%; margin-top: 1em;">
+
+> "Estimated lifetime LDL-C exposure was only a significant predictor of final NCPV in the univariable analysis but lost significance when age was included as a covariate. Both age and lifetime LDL-C exposure lost significance when baseline CAC was included in the model."
+
+::: {.fragment}
+
+Additionally, Table 3 does include one multivariable regression on the primary outcome $\Delta \text{NCPV}$:
+
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.85; padding-left: 1.5em;">
+  <li>$\Delta \text{NCPV} = \alpha + \beta_1 \, \text{CAC}_{\text{bl}} + \beta_2 \, \Delta \text{ApoB} + \beta_3 \, (\text{CAC}_{\text{bl}} \times \Delta \text{ApoB}) + \varepsilon$</li>
+  <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
+</ul>
+
+But the paper provides absolutely no explanation or rationale for this model. 
+
+:::
+
+</div>
+
+<br>
+<div style="font-size: 85%; margin-top: 1em;">
+
+::: {.fragment}
+
+So they did use three **multivariable models**.
+One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
+
+:::
+
+::: {.fragment}
+
+They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
+
+:::
+
+::: {.fragment}
+
+<br>
+This selective use raises questions.
+
+
+:::
+
+</div>
+
+---
+
+## 2 Univariable Linear Models {.smaller}
+
+> "Neither change in ApoB...baseline ApoB, nor total LDL-C exposure... were associated with the change in noncalcified plaque volume (NCPV) or TPS. All baseline plaque metrics (coronary artery calcium, NCPV, total plaque score, and percent atheroma volume) were strongly associated with the change in NCPV."
+
+::: {.fragment}
+
+<br>
+Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
+:::
+::: {.fragment}
+
+<br>
+At best, this reflects naïve reporting. At worst, it's actively misleading.
 :::
 
 # Bayesian Modeling 
@@ -693,7 +923,7 @@ Their choice of prior is subjective, influential, and not tested for robustness.
 
 ## 4 Bayesian Prior Choice {.smaller}
 
-#### Prior Scale Sensitivity Analysis on ΔNPCV ~ ApoB Model
+#### Prior Scale Sensitivity Analysis on ΔNCPV ~ ApoB Model
 
 <br>
 
@@ -831,26 +1061,28 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 ## Summary {.smaller}
 
-<div style="font-size: 80%; line-height: 1.2;">
+<div style="font-size: 77%; line-height: 1.2;">
 
 ::: {.fragment}
 
-1. **Univariable Linear Models**  
-   Each predictor tested separately (ApoB, LDL-C, age…)  
-   No confounder adjustment → **biased, unreliable, low credibility estimates**
+1. **ΔNCPV as Outcome**  
+   Regressed (NCPV₁ − NCPV₀) on baseline metrics <br>
+   Widely discouraged in statistical literature → Mathematical coupling, inflated error, and clinically ambiguous interpretation
+
 
 :::
 ::: {.fragment}
-2. **ΔNCPV as Outcome**  
-   Regressed (NCPV₁ − NCPV₀) on baseline NCPV₀ <br>
-   Mathematical coupling → is regression slope a **mathematical artifact or biology**
+
+2. **Univariable Linear Models**  
+   Each predictor tested separately (ApoB, LDL-C, age…)  
+   No confounder adjustment → **biased, unreliable, low credibility estimates**
 
 :::
 ::: {.fragment}
 
 3. **Bayesian Inference**  
    Bayes inference used to support "no ApoB effect" & "plaque begets plaque"<br> 
-   Unadjusted, observational data → **misleading, unusual use of Bayesian inference**
+   Applied atop unadjusted, structurally weak models → **amplifies flawed conclusions**
 :::
 ::: {.fragment}
 
@@ -1108,7 +1340,7 @@ power_plotly
 
 <div style="font-size: 85%">
 
-> "It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keta-CTA study
+> "It should be emphasized that this includes heterogeneity in progression (and regression) across the population." - Keto-CTA study
 
 > ["If, despite our results show that CVD risk among LMHRs is heterogeneous (and thus, **a pooled summary isn't a good idea**), you must have a numerical pooled NCPVchange value, it is: p50=18.8 mm3 IQR(37.3)."](https://x.com/AdrianSotoMota/status/1910045858152042999) - X post from Author
 
@@ -1145,7 +1377,7 @@ All clinical populations are heterogeneous in risk.
 
 With a median of 18.8 mm³ and only 1–2 individuals showing regression, the IQR of 37.3 mm³ must be mostly skewed upward, not balanced.
 
-A wide IQR here reflects high inter-individual variability in outcomes among the LMHRs, variability in progression of NCPV, as all but a few individuals had more plaque at follow up.
+A wide IQR here reflects high inter-individual variability in outcomes among the LMHRs, variability in progression of NCPV, as all but a few individuals had more plaque at follow-up.
 
 ::: {.fragment}
 
@@ -1245,7 +1477,7 @@ Just run and report the multivariable, adjusted models.
 
 <br>
 
-**"Plaque Begets Plaque, ApoB does not"**
+**"Plaque Begets Plaque, ApoB Does Not"**
 
 :::
 
@@ -1286,9 +1518,13 @@ This approach was chosen after detecting heteroskedasticity (non-constant varian
 
 <div style="font-size: 130%">
 
+> Plaque Begets Plaque, ApoB Does Not
+
+::: {.fragment}
+
 > "misinterpretations"
 
-> Plaque Begets Plaque, ApoB does not
+:::
 
 </div>
 
