@@ -601,9 +601,10 @@ A slope from ΔNCPV ∼ NCPV₀ may reflect math, not biology, because the outco
 :::
 
 # Univariable Linear Models
-At best: exploratory. 
+At best: hypothesis-generating.
 
-At worst: misleading.
+At worst: misread as proof.
+
 
 ## 2 Univariable Linear Models {.smaller}
 
@@ -618,7 +619,7 @@ each was tested separately in single-predictor regressions.
 
 ::: {.fragment}
 
-This modeling choice introduces **omitted-variable bias**:  
+This modeling choice leaves estimates vulnerable to **omitted-variable bias**:  
 
 "...omitting a relevant variable from a model which explains the independent and dependent variable leads to biased estimates." - [Wilms (2021)](https://www.researchgate.net/publication/354514325_Omitted_variable_bias_A_threat_to_estimating_causal_relationships)
 
@@ -731,7 +732,8 @@ This selective use raises questions.
 ::: {.fragment}
 
 <br>
-Stating this in the abstract based solely on univariable regressions is a textbook case of overstating conclusions based on methodologically inadequate statistical models.
+Stating this in the abstract based solely on univariable regressions is a clear example of overinterpreting results drawn from limited statistical models.
+
 :::
 ::: {.fragment}
 
@@ -813,7 +815,7 @@ This is *unusual* in a non-randomized, uncontrolled, 1-year observational study 
 ::: {.fragment}
 
 <br>
-Despite the limited model and context, they present the result as confirmatory.
+Despite the limited model and context, the interpret the Bayes factor as strongly confirmatory, which is uncommon in similar observational settings.
 
 :::
 
@@ -823,11 +825,11 @@ Despite the limited model and context, they present the result as confirmatory.
 ## 3 Bayesian Inference {.smaller}
 
 <br>
-They are applying a stronger-sounding statistical framework onto a structurally weak analysis.
+They are applying a more confirmatory-leaning statistical framework to an exploratory analysis that lacks adequate adjustment or robustness.
 
 ::: {.fragment}
 
-This is a **misuse** of Bayesian inference. 
+This is an unusual application of Bayes inference in a context that lacks typical conditions for robust confirmatory conclusions.
 
 :::
 
@@ -904,7 +906,7 @@ Labeling an `rscale = 0.8` prior as "moderately informative" or "conservative" d
 
 Their choice of prior is subjective, influential, and not tested for robustness.
 
-- The model was set up to expect large ApoB effects, so small observed effects are treated as evidence for no effect. 
+- The model expected large ApoB effects, so small observed effects are treated as evidence for no effect. 
 
 - **Best practice** is to run a **sensitivity analysis**, to see whether conclusions change with different priors.
 
@@ -1041,26 +1043,6 @@ Bayes factors update prior odds into posterior odds. Claiming the null is 6–10
 
 ::: 
 
-## 5 Bayes Factor Interpretation {.smaller}
-
-Even without other issues (e.g. confounding / non-adjusted variables / short follow-up / non-RCT, etc.),
-the reported BF of **6.3 for ΔNCPV ~ ApoB** reflects only moderate evidence for no effect —
-not strong or decisive.
-
-
-<img src="assets/BF_interpretation.png" width="40%" style="display: block; margin: auto;" />
-
-<div style="font-size: 60%; text-align: center; margin-top: 0.5em;">
-<strong>Table 1.</strong> A heuristic classification scheme for Bayes factors <strong>BF<sub>10</sub></strong> 
-Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-8.pdf">SpringerLink</a>
-</div>
-
-
-
-<small>
-(Assuming BF₁₀ as per standard conventions; if BF₀₁, it reverses)
-</small>
-
 ---
 
 ## Summary {.smaller}
@@ -1072,7 +1054,6 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 1. **ΔNCPV as Outcome**  
    Regressed (NCPV₁ − NCPV₀) on baseline metrics <br>
    Widely discouraged in statistical literature → Mathematical coupling, inflated error, and clinically ambiguous interpretation
-
 
 :::
 ::: {.fragment}
@@ -1086,7 +1067,7 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 3. **Bayesian Inference**  
    Bayes inference used to support "no ApoB effect" & "plaque begets plaque"<br> 
-   Applied atop unadjusted, structurally weak models → **amplifies flawed conclusions**
+   Applied atop unadjusted, structurally weak models → **amplifies conclusions**
 :::
 ::: {.fragment}
 
@@ -1104,7 +1085,7 @@ Source: <a href="https://link.springer.com/content/pdf/10.3758/s13428-018-01189-
 
 6. **Headline claim**  
    "Plaque Begets Plaque, ApoB Does Not"<br>
-   Overstates evidence → **methodologically weak, statistically inadequate, selectively modeled and reported**
+   Overstates evidence → undermined by methodological limitations, unadjusted modeling, and incomplete model reporting
 
 :::
 </div>
