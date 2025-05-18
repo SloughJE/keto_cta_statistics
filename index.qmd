@@ -824,8 +824,7 @@ They are applying a more confirmatory-leaning statistical framework to an explor
 
 ::: {.fragment}
 
-This is an unusual application of Bayes inference in a context that lacks typical conditions for robust confirmatory conclusions.
-
+This is an ill-suited use of Bayesian inference.
 :::
 
 ::: {.fragment}
@@ -835,7 +834,7 @@ This is an unusual application of Bayes inference in a context that lacks typica
 Not because Bayesian methods are invalid.
 
 <br>
-Because they're being used to amplify certainty in an analysis that lacks adjustment, control, or transparency about its assumptions.
+Because they're being used to amplify certainty or create unwarranted confidence from an analysis that lacks adjustment, control, or a design suitable for strong claims.
 
 :::
 ---
@@ -1531,3 +1530,8 @@ The paper did not report any univariable linear regression models.
 
 :::
 
+::: {.fragment}
+
+:::
+
+# Final Thoughts
