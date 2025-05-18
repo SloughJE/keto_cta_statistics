@@ -117,9 +117,12 @@ $$
 
 Change scores (ΔNCPV) can **obscure clinically meaningful** patterns
 
+<br>
+
+::: {.fragment}
+
 ΔNCPV is the same — but is that meaningful?
 
-<br>
 
 ```{r}
 library(plotly)
@@ -135,16 +138,19 @@ knitr::kable(df, col.names = c(
 ))
 ```
 
+:::
+
 
 ---
 
 ## 1 ΔNCPV as Outcome Variable {.smaller}
 
-Change scores (ΔNCPV) can obscure **clinically meaningful** patterns
+Change scores (ΔNCPV) can **obscure clinically meaningful** patterns
+
+<br>
 
 ΔNCPV is the same — but is that meaningful?
 
-<br>
 
 ```{r}
 df <- data.frame(
