@@ -34,15 +34,15 @@ John Slough
 <br>
 
 - **Design**: 1-year prospective cohort using coronary CT angiography (CCTA)  
-- **Participants**: 100 lean, metabolically healthy adults on keto ≥2 yrs  
-  - LDL-C ≥190 mg/dL, HDL-C ≥60 mg/dL, TG ≤80 mg/dL, ApoB 185 ± 51 mg/dL  
-  <br>
+- **Participants:** 100 adults metabolically healthy adults meeting *lean mass hyper-responder* (LMHR) 
+  - profile: keto ≥2 yrs, BMI <25, LDL-C ≥190, HDL-C ≥60, TG ≤80  
+<br>
 
 ::: {.fragment}
   
-- **Findings**: No link between ApoB/LDL-C (baseline/change) and plaque progression  
-- **Predictors**: Baseline plaque (CAC, NCPV, TPS, PAV) strongly predicted progression (**ΔNCPV**) 
-- **Stats**: Bayesian analysis favored no ApoB–plaque link (6–10× vs alt)  
+- **Findings:** No association between ApoB or LDL-C (baseline or change) and plaque progression  
+- **Predictors:** Baseline plaque burden (CAC, NCPV, TPS, PAV) predicted ΔNCPV  
+- **Stats:** Univariable models used on primary and secondary outcomes; Bayesian analysis favored null for ApoB (BF 6–10 in favor of no effect)  
 <br>
 - **Conclusion**: *Plaque begets plaque; ApoB does not*  
 
@@ -689,8 +689,6 @@ Additionally, Table 3 does include one multivariable regression on the primary o
   <li>Appears to be the only **adjusted model** involving $\Delta \text{NCPV}$</li>
 </ul>
 
-But the paper provides absolutely no explanation or rationale for this model. 
-
 :::
 
 </div>
@@ -700,22 +698,21 @@ But the paper provides absolutely no explanation or rationale for this model.
 
 ::: {.fragment}
 
-So they did use three **multivariable models**.
+So they did include three multivariable models **multivariable models**:
 One on the main outcome $\Delta \text{NCPV}$ and two in their Age Mediation Analysis on NCPV at follow-up.
 
 :::
 
 ::: {.fragment}
 
-They never modeled $\Delta \text{NCPV}$ with a full set of available covariates.
+None tested the full set of available covariates, nor explained why these specific models were chosen.
 
 :::
 
 ::: {.fragment}
 
 <br>
-This selective use raises questions.
-
+This selective modeling raises questions.
 
 :::
 
