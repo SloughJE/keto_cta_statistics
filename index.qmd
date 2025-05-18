@@ -386,8 +386,10 @@ From Oldham test* (1962): $\beta > 0 \quad\text{if}\quad \rho > \frac{\sigma_0}{
 
 The slope depends on:
 
-- **correlation** between baseline and follow-up ($\rho$)
-- **relative spread** of the two time points
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 90%; padding-left: 1.5em;">
+  <li>**correlation** between baseline and follow-up ($\rho$)</li>
+  <li>**relative spread** of the two time points</li>
+</ul>
 
 ::: {.fragment}
 
@@ -406,15 +408,17 @@ That inequality can be satisfied without any causal baseline effect, for example
 
 In this study:
 
-- Almost all participants had increased NCPV, so $\rho$ is plausibly high
-- if increases were heterogeneous, $\sigma_1$ is also likely > $\sigma_0$
+<ul style="margin-top: 0; margin-bottom: 0; line-height: 0.9; font-size: 90%; padding-left: 1.5em;">
+  <li>Almost all participants had increased NCPV, so $\rho$ is plausibly high</li>
+  <li>if increases were heterogeneous, $\sigma_1$ is also likely > $\sigma_0$</li>
+</ul>
+
 :::
 
 ::: {.fragment}
 
 
-A positive slope in a mathematically coupled regression signals only that baseline–follow-up correlation and/or variance growth were strong enough to offset the unavoidable −1 artifact. Whether it reflects true biology, and whether it exaggerates or understates that biology, cannot be determined from $\beta$ alone.
-
+A positive slope in a mathematically coupled regression signals only that baseline–follow-up correlation and/or variance growth were strong enough to offset the unavoidable −1 artifact. Whether it reflects true biology, and whether it exaggerates or understates that biology, cannot be determined from $\beta$ alone.<br>In other words, we cannot just add 1 to the resulting beta. It is more complicated than that.
 
 :::
 
